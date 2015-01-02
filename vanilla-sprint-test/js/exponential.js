@@ -114,6 +114,11 @@ angular.module('incremental',[])
 				if($scope.sprintFinished == false){
 					stop();
 					$scope.sprintFinished = true;
+					ga('send', 'event', 'sprint', 'finished', {
+					  'goal': $scope.sprintMax,
+					  'time': $scope.padCeroes($scope.player.hours)+":"+$scope.padCeroes($scope.player.minutes)+":"+$scope.padCeroes($scope.player.seconds),
+					  'multiplier': $scope.player.multiplier
+					});
 				}
 				tempCurrency = new Decimal($scope.sprintMax);
 			}
