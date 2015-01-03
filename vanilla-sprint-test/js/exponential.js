@@ -115,9 +115,9 @@ angular.module('incremental',[])
 					stop();
 					$scope.sprintFinished = true;
 					ga('send', 'event', 'sprint', 'finished', {
-					  'goal': $scope.sprintMax,
-					  'time': $scope.padCeroes($scope.player.hours)+":"+$scope.padCeroes($scope.player.minutes)+":"+$scope.padCeroes($scope.player.seconds),
-					  'multiplier': $scope.player.multiplier
+					  'metric15': $scope.sprintMax,
+					  'metric16': $scope.padCeroes($scope.player.hours)+":"+$scope.padCeroes($scope.player.minutes)+":"+$scope.padCeroes($scope.player.seconds),
+					  'metric17': $scope.player.multiplier
 					});
 				}
 				tempCurrency = new Decimal($scope.sprintMax);
@@ -201,7 +201,7 @@ angular.module('incremental',[])
 		}
 		
 		$scope.padCeroes = function padCeroes(number){
-			if(number < 9){
+			if(number <= 9){
 				return "0"+number;
 			}
 			return number;
