@@ -40,14 +40,7 @@ angular.module('incremental',[])
 		
         $scope.click = function() {
 			var tempCurrency = $scope.player.currency.plus($scope.player.cashPerClick);
-			if(tempCurrency >= $scope.sprintMax){
-				if($scope.sprintFinished == false){
-					stop();
-					$scope.sprintFinished = true;
-				}
-				tempCurrency = new Decimal($scope.sprintMax);
-			}
-            $scope.player.currency = tempCurrency;
+            $scope.player.currency = checkMaxReached(tempCurrency);
         };
         
         $scope.upgradePrice = function(number) {
@@ -110,28 +103,43 @@ angular.module('incremental',[])
             lastUpdate = updateTime;
             var updateMultiplier = (1+($scope.player.multiplier-1) * timeDiff).toFixed(15);
 			var tempCurrency = $scope.player.currency.times(updateMultiplier);
-			if(tempCurrency >= $scope.sprintMax){
-				if($scope.sprintFinished == false){
-					stop();
-					$scope.sprintFinished = true;
-					ga('send', 'event', 'sprint', 'finished', {
-					  'metric15': $scope.sprintMax,
-					  'metric16': $scope.padCeroes($scope.player.hours)+":"+$scope.padCeroes($scope.player.minutes)+":"+$scope.padCeroes($scope.player.seconds),
-					  'metric17': $scope.player.multiplier
-					});
-				}
-				tempCurrency = new Decimal($scope.sprintMax);
-			}
-            $scope.player.currency = tempCurrency;
+            $scope.player.currency = checkMaxReached(tempCurrency);
         };
         
+		function checkMaxReached(currency){
+			checkSprintFinished(currency);
+			if(currency.comparedTo($scope.sprintMax[$scope.sprintMax.length-1]) >= 1){
+				return $scope.sprintMax[$scope.sprintMax.length-1];
+			}
+			return currency;
+		}
+		
+		function checkSprintFinished(currency){
+			for(var i = 0; i < $scope.sprintMax.length; i++){
+				if(currency.comparedTo($scope.sprintMax[i]) >= 1 && $scope.sprintFinished[i] == false){
+					if(i == $scope.sprintMax.length-1){
+						stop();
+					}
+					$scope.sprintFinished[i] = true;
+					$scope.sprintTime[i] = $scope.padCeroes($scope.player.hours)+":"+$scope.padCeroes($scope.player.minutes)+":"+$scope.padCeroes($scope.player.seconds);
+					ga('send', 'event', 'sprint', 'finished', {
+					  'goal': $scope.sprintMax[i],
+					  'time': $scope.sprintTime[i],
+					  'multiplier': $scope.player.multiplier
+					});
+					
+					break;
+				}
+			}
+		};
+		
 		function prettifyNumber(number){
 			if(number.comparedTo(Infinity) == 0){
 				return "&infin;";
 			}
 			if(number.comparedTo(1e21) >= 0){
 				// Very ugly way to extract the mantisa and exponent from an exponential string
-				var exponential = number.toString().split("e");
+				var exponential = number.toExponential(15).split("e");
 				var exponent = new Decimal(exponential[1].split("+")[1]);
 				// And it is displayed in with superscript
 				return  exponential[0]+" x 10<sup>"+prettifyNumber(exponent)+"</sup>";
@@ -165,8 +173,21 @@ angular.module('incremental',[])
 		
 		/* Timing test code. Not to keep in main branch */
 		var t;
-		$scope.sprintFinished = false;
-		$scope.sprintMax = 1e300;
+		$scope.sprintFinished = [false,
+								false,
+								false,
+								false
+								];
+		$scope.sprintMax = [new Decimal(1e30),
+							new Decimal(1e300),
+							new Decimal('1e3000'),
+							new Decimal('1e30000')
+							];
+		$scope.sprintTime = ['',
+								'',
+								'',
+								''
+								];
 		
 		function add() {
 			$scope.player.seconds++;

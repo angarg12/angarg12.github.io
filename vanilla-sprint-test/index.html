@@ -19,13 +19,16 @@ ga('send', 'pageview');
   <a href="#game">Game</a> |
   <a href="#options">Options</a>
   <div id="game">
-	  <h2>This is a test version for balance purposes. You aim is to get to {{sprintMax}} as fast as possible. The stopwatch will stop as soon as you finish the sprint.</h2>
-	  <h2>Sprint finished: {{sprintFinished}}</h2>
-	  <h2><time>{{padCeroes(player.hours)}}:{{padCeroes(player.minutes)}}:{{padCeroes(player.seconds)}}</time></h2>
+	  <h2>This is a test version for balance purposes. You aim is to get certain money as fast as possible. The stopwatch will stop as soon as you finish the sprint.</h2>
+	  <h2>Time <time>{{padCeroes(player.hours)}}:{{padCeroes(player.minutes)}}:{{padCeroes(player.seconds)}}</time></h2>
+	  <h2>{{sprintMax[0]}} <time>{{sprintTime[0]}}</time></h2>
+	  <h2>{{sprintMax[1]}} <time>{{sprintTime[1]}}</time></h2>
+	  <h2>{{sprintMax[2]}} <time>{{sprintTime[2]}}</time></h2>
+	  <h2>{{sprintMax[3]}} <time>{{sprintTime[3]}}</time></h2>
 	  <h2>Cash multiplier: {{(player.multiplier).toFixed(4)}}</h2>
 	  <hr>
 		  <button ng-click="click()">Generate cash ${{player.cashPerClick}}</button>
-		  <p>Cash: $<span ng-bind-html="currencyValue()"/></p>    
+		  <p style="font-family:Courier New, Courier, monospace" >Cash: $<span ng-bind-html="currencyValue()"/></p>    
 		  <button ng-click="buyUpgrade(0)" ng-disabled="player.currency.comparedTo(upgradePrice(0)) < 0">+0.0001 (cost ${{upgradePrice(0)}})</button>
 		  <button ng-click="buyUpgrade(1)" ng-disabled="player.currency.comparedTo(upgradePrice(1)) < 0">+0.001 (cost ${{upgradePrice(1)}})</button>
 		  <button ng-click="buyUpgrade(2)" ng-disabled="player.currency.comparedTo(upgradePrice(2)) < 0">+0.01 (cost ${{upgradePrice(2)}})</button>
