@@ -123,7 +123,7 @@ angular.module('incremental',[])
 						stop();
 					}
 					$scope.sprintTime[i] = $scope.padCeroes($scope.player.hours)+":"+$scope.padCeroes($scope.player.minutes)+":"+$scope.padCeroes($scope.player.seconds);
-					ga('send', 'event', 'sprint', 'finished', 'goal:' + $scope.sprintMax[i]+',time:' + $scope.sprintTime[i]',multiplier:' + $scope.player.multiplier);
+					ga('send', 'event', 'sprint', 'finished', 'goal:' + $scope.sprintMax[i] + ',time:' + $scope.sprintTime[i] + ',multiplier:' + $scope.player.multiplier);
 					
 					break;
 				}
