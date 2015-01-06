@@ -116,15 +116,14 @@ angular.module('incremental',[])
 		
 		function checkSprintFinished(currency){
 			for(var i = 0; i < $scope.sprintMax.length; i++){
-				if(currency.comparedTo($scope.sprintMax[i]) >= 1 && $scope.sprintFinished[i] == false){
+				// If sprintTime is empty string, that means that it hasn't been finished yet
+				if(currency.comparedTo($scope.sprintMax[i]) >= 1 && 
+				$scope.sprintTime[i] == ''){
 					if(i == $scope.sprintMax.length-1){
 						stop();
 					}
-					$scope.sprintFinished[i] = true;
 					$scope.sprintTime[i] = $scope.padCeroes($scope.player.hours)+":"+$scope.padCeroes($scope.player.minutes)+":"+$scope.padCeroes($scope.player.seconds);
-					ga('send', 'event', 'sprint', 'finished', 'goal:' + $scope.sprintMax[i]);
-					ga('send', 'event', 'sprint', 'finished', 'time:' + $scope.sprintTime[i]);
-					ga('send', 'event', 'sprint', 'finished', 'multiplier:' + $scope.player.multiplier);
+					ga('send', 'event', 'sprint', 'finished', 'goal:' + $scope.sprintMax[i]+',time:' + $scope.sprintTime[i]',multiplier:' + $scope.player.multiplier);
 					
 					break;
 				}
@@ -171,11 +170,6 @@ angular.module('incremental',[])
 		
 		/* Timing test code. Not to keep in main branch */
 		var t;
-		$scope.sprintFinished = [false,
-								false,
-								false,
-								false
-								];
 		$scope.sprintMax = [new Decimal(1e30),
 							new Decimal(1e300),
 							new Decimal('1e3000'),
