@@ -3,7 +3,7 @@ angular.module('incremental',[])
 		$scope.version = 0.5;
 		
 		var startPlayer = {
-			cashPerClick:10000,
+			cashPerClick:1,
 			multiplier: 1,
 			upgrades: [0,
 						0,
