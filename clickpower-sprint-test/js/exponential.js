@@ -118,7 +118,8 @@ angular.module('incremental',[])
 		}
 		
         function update() {
-            $scope.player.currency = $scope.player.currency.times($scope.player.multiplier);
+			var tempCurrency = $scope.player.currency.times($scope.player.multiplier.toFixed(15));
+			$scope.player.currency = checkMaxReached(tempCurrency);
         };
         
 		function checkMaxReached(currency){

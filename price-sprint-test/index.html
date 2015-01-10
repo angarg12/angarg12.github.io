@@ -29,11 +29,11 @@ ga('send', 'pageview');
 	  <hr>
 		  <button ng-click="click()">Generate cash ${{player.cashPerClick}}</button>
 		  <p style="font-family:Courier New, Courier, monospace" >Cash: $<span ng-bind-html="currencyValue()"/></p>    
-		  <button ng-click="buyUpgrade(0)" ng-disabled="player.currency.comparedTo(upgradePrice(0)) < 0">+0.0001 (cost ${{upgradePrice(0)}})</button>
-		  <button ng-click="buyUpgrade(1)" ng-disabled="player.currency.comparedTo(upgradePrice(1)) < 0">+0.001 (cost ${{upgradePrice(1)}})</button>
-		  <button ng-click="buyUpgrade(2)" ng-disabled="player.currency.comparedTo(upgradePrice(2)) < 0">+0.01 (cost ${{upgradePrice(2)}})</button>
-		  <button ng-click="buyUpgrade(3)" ng-disabled="player.currency.comparedTo(upgradePrice(3)) < 0">+0.1 (cost ${{upgradePrice(3)}})</button>
-		  <button ng-click="buyUpgrade(4)" ng-disabled="player.currency.comparedTo(upgradePrice(4)) < 0">+1 (cost ${{upgradePrice(4)}})</button>
+		  <button ng-click="buyUpgrade(0)" ng-disabled="player.currency.comparedTo(upgradePrice(0)) < 0">+0.0001 (cost ${{upgradePrice(0).toString()}})</button>
+		  <button ng-click="buyUpgrade(1)" ng-disabled="player.currency.comparedTo(upgradePrice(1)) < 0">+0.001 (cost ${{upgradePrice(1).toString()}})</button>
+		  <button ng-click="buyUpgrade(2)" ng-disabled="player.currency.comparedTo(upgradePrice(2)) < 0">+0.01 (cost ${{upgradePrice(2).toString()}})</button>
+		  <button ng-click="buyUpgrade(3)" ng-disabled="player.currency.comparedTo(upgradePrice(3)) < 0">+0.1 (cost ${{upgradePrice(3).toString()}})</button>
+		  <button ng-click="buyUpgrade(4)" ng-disabled="player.currency.comparedTo(upgradePrice(4)) < 0">+1 (cost ${{upgradePrice(4).toString()}})</button>
 	  <hr>
    </div>  
 	<div id="options">

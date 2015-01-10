@@ -10,11 +10,11 @@ angular.module('incremental',[])
 						0,
 						0,
 						0],
-			upgradesPrice: [10,
-							100,
-							1000,
-							10000,
-							100000],
+			upgradesPrice: [new Decimal(10),
+							new Decimal(100),
+							new Decimal(10000),
+							new Decimal(100000000),
+							new Decimal(10000000000000000)],
 			currency: new Decimal(0),
 			sprintTime: ['',
 						'',
@@ -24,11 +24,11 @@ angular.module('incremental',[])
 			};
 		
 		var lastUpdate = 0;
-        var upgradeBasePrice = [10,
-                                100,
-                                1000,
-                                10000,
-                                100000];
+        var upgradeBasePrice = [new Decimal(10),
+								new Decimal(100),
+								new Decimal(10000),
+								new Decimal(100000000),
+								new Decimal(10000000000000000)];
         var upgradePower = [0.0001,
                             0.001,
                             0.01,
@@ -45,15 +45,15 @@ angular.module('incremental',[])
         };
         
         $scope.upgradePrice = function(number) {
-			return $scope.player.upgradesPrice[number];
-        };
-        
+			return $scope.player.upgradesPrice[number].toString();
+		}
+
         $scope.buyUpgrade = function(number) {
             if ($scope.player.currency.comparedTo($scope.upgradePrice(number)) >= 0) {
                 $scope.player.currency = $scope.player.currency.minus($scope.upgradePrice(number));
                 $scope.player.multiplier += upgradePower[number];
                 $scope.player.upgrades[number]++;
-				$scope.player.upgradesPrice[number] = (upgradeBasePrice[number] * Math.pow(1.2,$scope.player.upgrades[number])).toFixed();
+				$scope.player.upgradesPrice[number] = upgradeBasePrice[number].times(Decimal.pow(1.2,$scope.player.upgrades[number]));
             }
         };
         
@@ -99,11 +99,7 @@ angular.module('incremental',[])
 		}
 		
         function update() {
-            var updateTime = new Date().getTime();
-            var timeDiff = (Math.min(1000, Math.max(updateTime - lastUpdate,0))) / 1000;
-            lastUpdate = updateTime;
-            var updateMultiplier = (1+($scope.player.multiplier-1) * timeDiff).toFixed(15);
-			var tempCurrency = $scope.player.currency.times(updateMultiplier);
+			var tempCurrency = $scope.player.currency.times($scope.player.multiplier.toFixed(15));
             $scope.player.currency = checkMaxReached(tempCurrency);
         };
         
@@ -164,7 +160,7 @@ angular.module('incremental',[])
 				$scope.lastSave = "None";
 			}
 			versionControl(false);
-            $interval(update,80);
+            $interval(update,1000);
             $interval($scope.save,60000);
 			start();
         });
