@@ -10,7 +10,7 @@ angular.module('incremental',['ngAnimate']).directive('onFinishRender', function
         }
     }
 }).controller('IncCtrl',['$scope','$document','$interval', '$sce', '$filter', '$timeout', function($scope,$document,$interval,$sce,$filter,$timeout) { 
-		$scope.version = '0.11.1';
+		$scope.version = '0.11.2';
 		$scope.Math = window.Math;
 		
 		const startPlayer = {
@@ -70,11 +70,6 @@ angular.module('incremental',['ngAnimate']).directive('onFinishRender', function
 				var exponent = Decimal.pow(firstTerm,secondTerm);
 				$scope.player.multiplierUpgradePrice[number] = multiplierUpgradeBasePrice[number].
 					times(Decimal.pow(2,exponent));
-				if($scope.player.multiplierUpgradeLevel[number] == 1 && isEndgame($scope.currentPrestige)){
-					generatePrestigePlayer(number+1,false);
-					generatePrestigeUpgrades(number+1,false);
-					refreshUpgradeLine(number+1, true);
-				}
 				refreshUpgradeLine(number, true);
             }
         };
@@ -86,7 +81,7 @@ angular.module('incremental',['ngAnimate']).directive('onFinishRender', function
 				return;
 			}
 			if(force || upgradeDiv.innerHTML.trim() == "placeholder"){
-				upgradeDiv.innerHTML = "<b>Lemma "+(number+1)+".</b>$$^{"+$scope.player.multiplierUpgradeLevel[number]+"}\\quad \\frac{n(t)}{"+prettifyNumberTeX($scope.player.multiplierUpgradePrice[number])+"} \\Rightarrow\\; +\\times"+prettifyNumberTeX($scope.multiplierUpgradePower[number])+"$$";
+				upgradeDiv.innerHTML = "<b>Lemma "+(number+1)+".</b>$$^{"+$scope.player.multiplierUpgradeLevel[number]+"}\\quad \\frac{n(t)}{"+prettifyNumberTeX($scope.player.multiplierUpgradePrice[number])+"} \\Rightarrow\\; r(t) + "+prettifyNumberTeX($scope.multiplierUpgradePower[number])+"$$";
 				MathJax.Hub.Queue(['Typeset',MathJax.Hub,upgradeDiv]);
 			}
         };
@@ -170,7 +165,7 @@ angular.module('incremental',['ngAnimate']).directive('onFinishRender', function
 			
 			// Generate the prestige values
 			$scope.currentPrestige = level;
-			if(isEndgame(level)){
+			if($scope.isEndgame(level)){
 				// For endgame, we begin from upgrades 0.
 				generatePrestigePlayer(0,true);
 				generatePrestigeUpgrades(0,true);
@@ -184,7 +179,12 @@ angular.module('incremental',['ngAnimate']).directive('onFinishRender', function
 		};
 
         function update() {
-            var tempN = $scope.player.n.times($scope.player.multiplier);
+            var tempN;
+            if($scope.isEndgame($scope.currentPrestige)){
+            	tempN = Decimal.pow($scope.player.n,$scope.player.multiplier);
+            }else{
+            	tempN = $scope.player.n.times($scope.player.multiplier);
+            }
 			$scope.player.n = adjustN(tempN);
         }
         
@@ -198,12 +198,15 @@ angular.module('incremental',['ngAnimate']).directive('onFinishRender', function
 			}
 			if(number.comparedTo(1e21) >= 0){
 				// Very ugly way to extract the mantisa and exponent from an exponential string
-				var exponential = number.toString().split("e");
+				var exponential = number.toSignificantDigits(6).toString().split("e");
 				var exponent = new Decimal(exponential[1].split("+")[1]);
 				// And it is displayed in with superscript
-				return  $filter('number')(exponential[0])+" &#215; 10<sup>"+prettifyNumberHTML(exponent)+"</sup>";
+				if(exponential[0] == "1"){
+					return  "10<sup>"+prettifyNumberHTML(exponent)+"</sup>";							
+				}
+				return  $filter('number')(exponential[0])+" &#215; 10<sup>"+prettifyNumberHTML(exponent)+"</sup>";						
 			}
-			return $filter('number')(number.toString());
+			return $filter('number')(number.toDecimalPlaces(5).toString());
 		}
         
 		function prettifyNumberTeX(number){
@@ -216,15 +219,25 @@ angular.module('incremental',['ngAnimate']).directive('onFinishRender', function
 			}
 			if(number.comparedTo(1e21) >= 0){
 				// Very ugly way to extract the mantisa and exponent from an exponential string
-				var exponential = number.toString().split("e");
+				var exponential = number.toSignificantDigits(6).toString().split("e");
 				var exponent = new Decimal(exponential[1].split("+")[1]);
 				// And it is displayed in with superscript
+				if(exponential[0] == "1"){
+					return "10^{"+prettifyNumberHTML(exponent)+"}";
+				}
 				return  $filter('number')(exponential[0])+" \\times 10^{"+prettifyNumberHTML(exponent)+"}";
 			}
-			return $filter('number')(number.toString());
+			return $filter('number')(number.toDecimalPlaces(5).toString());
 		}
 		
 		function versionControl(ifImport){
+			versionComparison = versionCompare($scope.player.version,'0.11.2');
+			if(versionComparison === -1 || versionComparison === false){
+				if($scope.currentPrestige == 11){
+					$scope.prestige(11);
+					$scope.player.version = '0.11.2';
+				}
+			}
 			versionComparison = versionCompare($scope.player.version,'0.11.1');
 			if(versionComparison === -1 || versionComparison === false){
 				$scope.player.preferences = angular.copy(startPlayer.preferences);
@@ -342,7 +355,7 @@ angular.module('incremental',['ngAnimate']).directive('onFinishRender', function
 			$scope.sprintFinished = false;
 		}
 		
-		function isEndgame(level){
+		$scope.isEndgame = function isEndgame(level){
 			return level == $scope.prestigeGoal.length-1;
 		}
 		
@@ -357,8 +370,8 @@ angular.module('incremental',['ngAnimate']).directive('onFinishRender', function
 			if(typeof $scope.lastSave  === 'undefined'){
 				$scope.lastSave = "None";
 			}
-			if(isEndgame($scope.currentPrestige)){
-				generatePrestigeUpgrades($scope.player.multiplierUpgradeLevel.length-1,true);
+			if($scope.isEndgame($scope.currentPrestige)){
+				generatePrestigeUpgrades(0,true);
 			}else{
 				generatePrestigeUpgrades($scope.currentPrestige,true);
 			}
