@@ -293,14 +293,14 @@ function($scope,$document,$interval,$sce,$filter,$timeout) {
 		};	
 
 		$scope.save = function() {
-			localStorage.setItem("playerStored", JSON.stringify($scope.player));
+			localStorage.setItem("playerStoredITE", JSON.stringify($scope.player));
 			var d = new Date();
 			$scope.lastSave = d.toLocaleTimeString();
 		};
 		
 		$scope.load = function() {
 			try {
-				$scope.player = JSON.parse(localStorage.getItem("playerStored"));
+				$scope.player = JSON.parse(localStorage.getItem("playerStoredITE"));
 			}catch(err){
 				alert("Error loading savegame, reset forced.");
 				$scope.reset(false);
@@ -314,9 +314,9 @@ function($scope,$document,$interval,$sce,$filter,$timeout) {
 				confirmation = confirm("Are you sure you want to reset? This will permanently erase your progress.");
 			}
 			
-			if(confirmation === true){
+			if(confirmation == true){
 				init();
-				localStorage.removeItem("playerStored");
+				localStorage.removeItem("playerStoredITE");
 			}
 		};
 		
@@ -568,7 +568,7 @@ function($scope,$document,$interval,$sce,$filter,$timeout) {
 			if(typeof number == 'undefined'){
 				return;
 			}					
-			if(number === ""){
+			if(number == ""){
 				return "";
 			}
 			if(number == Infinity){
@@ -601,13 +601,13 @@ function($scope,$document,$interval,$sce,$filter,$timeout) {
 				
 		$timeout(function(){
 			loadData($scope);
-			if(localStorage.getItem("playerStored") !== null){
+			if(localStorage.getItem("playerStoredITE") != null){
 				$scope.load();
 			}
-			if(typeof $scope.player  === 'undefined'){
+			if(typeof $scope.player  == 'undefined'){
 				init();
 			}
-			if(typeof $scope.lastSave  === 'undefined'){
+			if(typeof $scope.lastSave  == 'undefined'){
 				$scope.lastSave = "None";
 			}
 			//init();
