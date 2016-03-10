@@ -1,7 +1,7 @@
 angular.module('incremental',['ngAnimate'])
 .controller('IncCtrl',['$scope','$document','$interval', '$sce', '$filter', '$timeout', 
 function($scope,$document,$interval,$sce,$filter,$timeout) { 
-		$scope.version = '0.9.3';
+		$scope.version = '0.9.5';
 		$scope.Math = window.Math;
 		
 		// Polyfill for some browsers
@@ -263,7 +263,7 @@ function($scope,$document,$interval,$sce,$filter,$timeout) {
 		};
         
         $scope.react = function(number, reaction) {
-			if(!Number.isInteger(number)){
+			if(!Number.isInteger(number) || number <= 0){
 				return;
 			}
         	if($scope.isReactionCostMet(number, reaction)){
