@@ -1,8 +1,16 @@
 angular.module('incremental',['ngAnimate'])
 .controller('IncCtrl',['$scope','$document','$interval', '$sce', '$filter', '$timeout', 
 function($scope,$document,$interval,$sce,$filter,$timeout) { 
-		$scope.version = '0.9';
+		$scope.version = '0.9.3';
 		$scope.Math = window.Math;
+		
+		// Polyfill for some browsers
+		Number.parseFloat = parseFloat;
+		Number.isInteger = Number.isInteger || function(value) {
+		  return typeof value === "number" && 
+			isFinite(value) && 
+			Math.floor(value) === value;
+		};
 		
 		// TODO: The startPlayer object can be mostly build by using the data.js structures. That would save a lot of
 		// redundancy and make the code more flexible and dynamic.
@@ -206,6 +214,9 @@ function($scope,$document,$interval,$sce,$filter,$timeout) {
         };
         
         $scope.buyUpgrade = function(name, element) {
+			if($scope.player.elements[element].upgrades[name].bought){
+				return;
+			}
         	var price = $scope.upgrades[name].price;
             if ($scope.player.resources[element].number >= price) {
                 $scope.player.resources[element].number -= price;
@@ -252,6 +263,9 @@ function($scope,$document,$interval,$sce,$filter,$timeout) {
 		};
         
         $scope.react = function(number, reaction) {
+			if(!Number.isInteger(number)){
+				return;
+			}
         	if($scope.isReactionCostMet(number, reaction)){
 		    	var keys = Object.keys(reaction.reactant);
 		    	for(var i = 0; i < keys.length; i++){
@@ -293,14 +307,14 @@ function($scope,$document,$interval,$sce,$filter,$timeout) {
 		};	
 
 		$scope.save = function() {
-			localStorage.setItem("playerStoredITE", JSON.stringify($scope.player));
+			localStorage.setItem("playerStored", JSON.stringify($scope.player));
 			var d = new Date();
 			$scope.lastSave = d.toLocaleTimeString();
 		};
 		
 		$scope.load = function() {
 			try {
-				$scope.player = JSON.parse(localStorage.getItem("playerStoredITE"));
+				$scope.player = JSON.parse(localStorage.getItem("playerStored"));
 			}catch(err){
 				alert("Error loading savegame, reset forced.");
 				$scope.reset(false);
@@ -314,9 +328,9 @@ function($scope,$document,$interval,$sce,$filter,$timeout) {
 				confirmation = confirm("Are you sure you want to reset? This will permanently erase your progress.");
 			}
 			
-			if(confirmation == true){
+			if(confirmation === true){
 				init();
-				localStorage.removeItem("playerStoredITE");
+				localStorage.removeItem("playerStored");
 			}
 		};
 		
@@ -568,7 +582,7 @@ function($scope,$document,$interval,$sce,$filter,$timeout) {
 			if(typeof number == 'undefined'){
 				return;
 			}					
-			if(number == ""){
+			if(number === ""){
 				return "";
 			}
 			if(number == Infinity){
@@ -601,13 +615,13 @@ function($scope,$document,$interval,$sce,$filter,$timeout) {
 				
 		$timeout(function(){
 			loadData($scope);
-			if(localStorage.getItem("playerStoredITE") != null){
+			if(localStorage.getItem("playerStored") !== null){
 				$scope.load();
 			}
-			if(typeof $scope.player  == 'undefined'){
+			if(typeof $scope.player  === 'undefined'){
 				init();
 			}
-			if(typeof $scope.lastSave  == 'undefined'){
+			if(typeof $scope.lastSave  === 'undefined'){
 				$scope.lastSave = "None";
 			}
 			//init();
