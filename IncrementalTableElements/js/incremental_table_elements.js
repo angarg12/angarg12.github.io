@@ -1,7 +1,7 @@
 angular.module('incremental',['ngAnimate'])
 .controller('IncCtrl',['$scope','$document','$interval', '$sce', '$filter', '$timeout', 
 function($scope,$document,$interval,$sce,$filter,$timeout) { 
-		$scope.version = '0.9.9';
+		$scope.version = '0.9.11';
 		$scope.Math = window.Math;
 		
 		// Polyfill for some browsers
@@ -21,7 +21,9 @@ function($scope,$document,$interval,$sce,$filter,$timeout) {
 				menu:false,
 				content:false
 			},
-			elements_unlocked:1
+			elements_unlocked:1,
+			current_theme:"base",
+			version:$scope.version
 			};
 			
 		cache = {};
@@ -343,21 +345,77 @@ function($scope,$document,$interval,$sce,$filter,$timeout) {
 			}
 			
 			if(confirmation === true){
-				init();
 				localStorage.removeItem("playerStoredITE");
+				init();
+				intro();
+				$scope.updateTheme();
 			}
 		};
 		
+		$scope.exportSave = function exportSave() {
+			var exportText = btoa(JSON.stringify($scope.player));
+			
+			$("#exportSaveContents").toggle();
+			$("#exportSaveText").val(exportText);
+			$("#exportSaveText").select();
+		}
+
+		$scope.importSave = function importSave(){
+			var importText = prompt("Paste the text you were given by the export save dialog here.\n" +
+										"Warning: this will erase your current save!");
+			if(importText){
+				try {
+					stopListeners();
+					$scope.player = JSON.parse(atob(importText));
+					versionControl();
+					$scope.save();
+					$scope.updateTheme();
+					initializeListeners();
+				}catch(error){
+					alert("Invalid save file.");
+				}
+			}
+		}
+		
 		function versionControl() {
-			// helping poor players who fell for the bug where clicking hydrogen increases unlocked elements
-			if(!$scope.player.elements['O'].unlocked &&
-				$scope.player.elements_unlocked > 1){
-				$scope.player.resources['e-'].number += 256;
-				$scope.player.resources['p'].number += 256;
-				$scope.player.resources['n'].number += 256;
-				$scope.player.elements_unlocked = 1;
+			if($scope.player.version == undefined){
+				$scope.player.version = '0.9.10';
 			}
         };
+		
+		function simulateDecay (number, half_life){
+			// p is the decay constant
+			var p = Math.log(2) / half_life;
+			
+			//var decay_per_second = (1 - Math.exp(-p)) * number;  <-no need for this unless p > ~0.05 
+			var decay_per_second = p * number;
+			if(decay_per_second < 5){
+           			 //using Poisson distribution (would get slow for large numbers. 
+					 // there are fast formulas but I don't know how good they are)
+			        production = getPoisson(decay_per_second)				
+			}else{
+				 // Gaussian distribution
+            		var q = 1-p;
+			        var mean = number*p;
+			        var variance = number*p*q;
+			        var std = Math.sqrt(variance);
+			        production = Math.round(numberGenerator.nextGaussian()*std+mean);				
+			}
+			return production
+		}
+        
+		function getPoisson(lambda) {
+			 L = Math.exp(-lambda);
+			 p = 1.0;
+			 k = 0;
+			
+			  do {
+				k++;
+				p *= Math.random();
+			  } while (p > L);
+			
+			  return k - 1;
+		}
 		
         function update() {        
             // decay should become first, since we are decaying the products from last step
@@ -366,13 +424,10 @@ function($scope,$document,$interval,$sce,$filter,$timeout) {
             	var radioisotope = $scope.radioisotopes[i];
             	if($scope.player.resources[radioisotope].unlocked){
             		var number = $scope.player.resources[radioisotope].number;
-            		// p is the decay constant
-            		var p = Math.log(2) / $scope.resources[radioisotope].decay.half_life;
-            		var q = 1-p;
-		        	var mean = number*p;
-		        	var variance = number*p*q;
-		        	var std = Math.sqrt(variance);
-		        	production = Math.round(numberGenerator.nextGaussian()*std+mean);
+           
+            		var half_life =  $scope.resources[radioisotope].decay.half_life;           	
+
+		        	production = simulateDecay(number, half_life)
 		        	if(production > number){
 		        		production = number;
 		        	}
@@ -404,12 +459,8 @@ function($scope,$document,$interval,$sce,$filter,$timeout) {
             	if($scope.player.resources[unstable].unlocked){
             		var number = $scope.player.resources[unstable].number;
             		// p is the decay constant
-            		var p = Math.log(2) / $scope.resources[unstable].decay.half_life;
-            		var q = 1-p;
-		        	var mean = number*p;
-		        	var variance = number*p*q;
-		        	var std = Math.sqrt(variance);
-		        	production = Math.round(numberGenerator.nextGaussian()*std+mean);
+            		var half_life = $scope.resources[unstable].decay.half_life;
+            		production = simulateDecay(number, half_life)
 		        	if(production > number){
 		        		production = number;
 		        	}
@@ -631,28 +682,36 @@ function($scope,$document,$interval,$sce,$filter,$timeout) {
 		}
 		
 		function init(){
+			cache = {};
+			$scope.current_tab = "Elements";
+			$scope.current_entry = "Hydrogen";
+			$scope.current_element = "H";
+			$scope.hover_element = "";
+			$scope.toast = [];
+			$scope.is_toast_visible = false;
 			populatePlayer();
 			$scope.player = angular.copy(startPlayer);
 		};
 				
 		$timeout(function(){
 			loadData($scope);
-			if(localStorage.getItem("playerStoredITE") !== null){
+			if(localStorage.getItem("playerStoredITE") != null){
 				$scope.load();
 			}
-			if(typeof $scope.player  === 'undefined'){
+			if($scope.player  == undefined){
 				init();
 			}
-			if(typeof $scope.lastSave  === 'undefined'){
+			if($scope.lastSave  == undefined){
 				$scope.lastSave = "None";
 			}
 			//init();
+			intro();
 			initializeListeners();
             $interval(update,1000);
             $interval(checkUnlocks,1000);
             $interval(clearCache,3000);
-            intro();
             $interval($scope.save,10000);
+			$scope.updateTheme();
         });	
         
         function clearCache() {
@@ -663,6 +722,14 @@ function($scope,$document,$interval,$sce,$filter,$timeout) {
         	for(var key in $scope.unlocks){
         		if(!$scope.player.unlocks[key]){
         			$scope.unlocks[key].listener = $scope.$on($scope.unlocks[key].event,$scope.unlocks[key].check);
+        		}
+        	}
+        };
+		
+		function stopListeners(){
+        	for(var key in $scope.unlocks){
+        		if($scope.player.unlocks[key].listener){
+        			$scope.player.unlocks[key].listener();
         		}
         	}
         };
@@ -713,5 +780,9 @@ function($scope,$document,$interval,$sce,$filter,$timeout) {
 		
 		function introStep(value){
 			$scope.player.intro[value] = true;
+		};
+		
+		$scope.updateTheme = function(){
+			document.getElementById('theme_css').href = 'styles/'+$scope.player.current_theme+'-bootstrap.min.css';
 		};
 }]);
