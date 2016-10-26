@@ -1,7 +1,7 @@
 angular.module('incremental',['ngAnimate'])
 .controller('IncCtrl',['$scope','$document','$interval', '$sce', '$filter', '$timeout', 
 function($scope,$document,$interval,$sce,$filter,$timeout) { 
-		$scope.version = '0.9.11';
+		$scope.version = '1.0.1';
 		$scope.Math = window.Math;
 		
 		// Polyfill for some browsers
@@ -377,13 +377,11 @@ function($scope,$document,$interval,$sce,$filter,$timeout) {
 			}
 		}
 		
-		function versionControl() {
-			if($scope.player.version == undefined){
-				$scope.player.version = '0.9.10';
-			}
-			if($scope.player.current_theme == undefined){
-				$scope.player.current_theme = "base";
-			}
+		function versionControl() {			
+			/*
+			if(versionCompare($scope.player.version,"0.11") == -1){
+				init();
+			}*/
         };
 		
 		function simulateDecay (number, half_life){
@@ -653,6 +651,12 @@ function($scope,$document,$interval,$sce,$filter,$timeout) {
         	}        	
         	return format;
         }
+		
+		$scope.exchangeReaction = function(reaction) {
+        	temp = reaction.reactant;
+			reaction.reactant = reaction.product;
+			reaction.product = temp;
+        }
         
 		$scope.prettifyNumber = function(number){
 			if(typeof number == 'undefined'){
@@ -788,4 +792,23 @@ function($scope,$document,$interval,$sce,$filter,$timeout) {
 		$scope.updateTheme = function(){
 			document.getElementById('theme_css').href = 'styles/'+$scope.player.current_theme+'-bootstrap.min.css';
 		};
+		
+		function versionCompare(left, right) {
+			if (typeof left + typeof right != 'stringstring')
+				return false;
+			
+			var a = left.split('.')
+			,   b = right.split('.')
+			,   i = 0, len = Math.max(a.length, b.length);
+				
+			for (; i < len; i++) {
+				if ((a[i] && !b[i] && parseInt(a[i]) > 0) || (parseInt(a[i]) > parseInt(b[i]))) {
+					return 1;
+				} else if ((b[i] && !a[i] && parseInt(b[i]) > 0) || (parseInt(a[i]) < parseInt(b[i]))) {
+					return -1;
+				}
+			}
+			
+			return 0;
+		}
 }]);
