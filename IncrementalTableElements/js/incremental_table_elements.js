@@ -751,7 +751,7 @@ function($scope,$document,$interval,$sce,$filter,$timeout) {
         
         $scope.numberUnlocks = function() {
         	if($scope.player == undefined) return;
-	        return Object.keys($scope.player.unlocks).length;
+	        return Object.keys($scope.unlocks).length;
         };
         
         $scope.numberUnlocked = function() {

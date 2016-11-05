@@ -2351,7 +2351,38 @@ function loadData($scope) {
 						order:217,
 						link:null,
 						description:'A compound is a group of two or more elements<br>Unstable means it is highly reactive, and can condense, decompose, polymerize, or become self-reactive quite easily due to pressure or temperature'
-						}
+						},
+ 					'A word from the developer':{
+ 						visible:function(){
+ 							return $scope.player.unlocks.finished;
+ 						},
+ 						order:9999,
+ 						link:null,
+ 						description:'Congratulations on finishing The Incremental Table of the Elements prototype!\
+ 						<br>When you first started playing, did you think this was a simple Cookie Clicker clone? Where your surprised when you saw the first game mechanics unfold? Where you curious about what else the game had to offer? And finally, where you engage by the prospect of managing a large quantity of resources in a complex \'economy simulation\' dictated by a small set of rules? Then this prototype has served its purpose.\
+ 						<br>The concept for this game started as a discussion about alternatives to current prestige systems. The original idea was a system where each reset introduces a new currency instead of providing a production bonus. This concept introduces several game design challenges such as how different currencies are related in a complex economic simulation. A parallel was drawn between this concept and the way different elements atoms interact, and the focus of the idea shifted to a chemistry-based game.\
+ 						<br>The first objective of this game is to provide a truly incremental (unfolding) experience where game mechanics are unveiled progressively, and the way the game operates is changed by means of paradign shifts.\
+ 						<br>The second objective is offering a massive economy simulation experience, in a system with (potentially) thousands of different interconnected resources. However this depth is offered elegantly, via a small and consistent set of rules.\
+ 						<br>For this prototype we implemented what we consider the fundamental set of rules of the game (isotopes, radioactivity, reactions, etc.) and two elements, just to showcase the potential of the whole system. However, the realization of the whole game doesn\'t come without challenges; implementation challenges, design challenges, and most importantly, game design challenges.\
+ 						<ul>\
+ 							<li> Performance is an issue. It is not clear of Javascript can handle a system with thousands of resources and complex calculations. The current prototype has been implemented in the fastest way possible and heavy refactoring would be needed to support a final product.\
+ 							<il>Display of resources. How can we show to the player the relevant information in a game with thousands of resources? What options should the player have to filter and order the information? How to do this in an efficient (computationally speaking) way?\
+ 							<li>Limits. There is a (practical) finite amount of elements, isotopes and ions. However, by definition, there is an unlimited amount of molecules that we can create. Therefore we should define an arbitrary limit on what molecules are to be included (e.g. by number of components).\
+ 							<li>Theme. Incremental games like A Dark Room and Kittens Game have a strong theme and a weak plot to drive the player. This game has a strong theme but no plot at all. Is the theme enough to drive the players? Is it interesting at all?\
+ 							<li>Balance. So far all numbers except for generators have been lifted from nature. This means that, although by laws of nature, no values will be game breaking, neither will they be finely tuned to make for the best user experience. To put it bold, nature cares about making things work, not about making things fun. This also implies that potentially a large number of resources will be completely useless from a game design point of view, while other will be overpowered. Also some artifacts from the laws of nature introduce huge problems from the game design perspective, that need to be addressed explicitly, yet from within the framework of the system e.g. how free radicals take away control from players and deplete the reserves of an specific, and maybe useful resource.\
+ 							<li> A second point on balance is the feasibility of balance on the first place. Even if we decide to throw away the accuracy of the game to ignore the values of nature, balancing a system with thousands of interlocked resources is a daunting task indeed.\
+ 							<li>Lastly, a crucial point remains unanswered: is the game engaging? Even if we manage to solve all the previous challenges, all the effort will go to waste of nobody wants to play the game. On its current state, the game has no purpose other than exploring the spaces of posibilities. The game has no challenge nor goal, and is closer to a toy than a game. Other games actually suffer from a similar problem and solve it by offering the player rewards or setting arbitrary goals. Would this system work for this game? For instance, offering the player a large array of achievements consisting of unlocking a certain part of the game, and then let him explore the massive space of possibilities of the game to find his way to this goal.\
+ 						</ul>\
+ 						Finally, the current system could be expanded by lifting even more game mechanics from the laws of nature. The following are some ideas that could extend the system and exponentially increase the complexity of gameplay while maintaining an elegant design.\
+ 						<ul>\
+ 							<li>More resource attributes. Currently resources are described by a set of very basic properties. However all elements have far more physical and chemical attributes that can be included in the model.\
+ 							<li>Control of temperature and pressure. Temperature and pressure change the behaviour of elements. By offering control of temperature and pressure of the system, players would have an exponentially higher possibility space to explore, and some actions would be harder or easier to perform in different scenarios.\
+ 							<li>Antimatter. Antimatter behaves exactly like matter but with opposite electrical charges. From a game design point of view, the player would start all over again unlocking each resource on its anti-form. However the only interesting property of antimatter is that, in contact with its counterpart, it is destroyed by releasing massive amounts of energy. The gameplay interest of this system remains unclear.\
+ 							<li>Subatomic resources. We could take a step down from elements and introduce subatomic particles in the system. These particles behave according to a different set of rules. In practice this could be implemented as a different phase in the game.\
+ 							<li>Molecular behavior. Although molecules are present in the game, no behavior particular to molecules has been implemented as a game system. Just like for subatomic resources, a whole set of game mechanics involving only molecules could be introduces in the system. This would introduce another phase of the game.\
+ 						</ul>\
+ 						This concludes the developer thoughs about the game. Thanks for playing.'
+					}
 	};
 
 	$scope.reactions = {
@@ -2796,85 +2827,15 @@ function loadData($scope) {
 			},
 			event:"cycle"
 		},
-		"helium":{
+		"finished":{
 			check:function(event,data){  
-				if("He" == data){
-					$scope.addToast("Helium");
-					$scope.player.unlocks["helium"] = true;
-					$scope.unlocks["helium"].listener();
+				if($scope.player.resources['H2O'].unlocked){
+					$scope.addToast("Congratulations! You finished the game");
+					$scope.player.unlocks["finished"] = true;
+					$scope.unlocks["finished"].listener();
 				}
 			},
-			event:"element"
-		},
-		"lithium":{
-			check:function(event,data){  
-				if("Li" == data){
-					$scope.addToast("Lithium");
-					$scope.player.unlocks["lithium"] = true;
-					$scope.unlocks["lithium"].listener();
-				}
-			},
-			event:"element"
-		},
-		"beryllium":{
-			check:function(event,data){  
-				if("Be" == data){
-					$scope.addToast("Beryllium");
-					$scope.player.unlocks["beryllium"] = true;
-					$scope.unlocks["beryllium"].listener();
-				}
-			},
-			event:"element"
-		},
-		"boron":{
-			check:function(event,data){  
-				if("B" == data){
-					$scope.addToast("Boron");
-					$scope.player.unlocks["boron"] = true;
-					$scope.unlocks["boron"].listener();
-				}
-			},
-			event:"element"
-		},
-		"carbon":{
-			check:function(event,data){  
-				if("C" == data){
-					$scope.addToast("Carbon");
-					$scope.player.unlocks["carbon"] = true;
-					$scope.unlocks["carbon"].listener();
-				}
-			},
-			event:"element"
-		},
-		"nitrogen":{
-			check:function(event,data){  
-				if("N" == data){
-					$scope.addToast("Nitrogen");
-					$scope.player.unlocks["nitrogen"] = true;
-					$scope.unlocks["nitrogen"].listener();
-				}
-			},
-			event:"element"
-		},
-		"fluorine":{
-			check:function(event,data){  
-				if("F" == data){
-					$scope.addToast("Fluorine");
-					$scope.player.unlocks["fluorine"] = true;
-					$scope.unlocks["fluorine"].listener();
-				}
-			},
-			event:"element"
-		},
-		"neon":{
-			check:function(event,data){  
-				if("Ne" == data){
-					$scope.addToast("Neon");
-					$scope.player.unlocks["neon"] = true;
-					$scope.unlocks["neon"].listener();
-				}
-			},
-			event:"element"
+			event:"cycle"
 		}
 	};
 	
