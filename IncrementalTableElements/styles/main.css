@@ -13,7 +13,6 @@ body{
 
 .affix {
 	top:0;
-	position:relative;
 }
 
 .element-table tr:first-child td {
