@@ -20,7 +20,7 @@ angular
 'spellEnemy',
 'scriptEnemy',
 function ($scope, $document, $interval, $sce, $filter, $timeout, util, savegame, player, generator, upgrade, spell, script, enemy, generatorEnemy, upgradeEnemy, spellEnemy, scriptEnemy) {
-  $scope.version = '0.7.4';
+  $scope.version = '0.7.6';
   $scope.Math = window.Math;
   
   $scope.util = util;
@@ -156,9 +156,11 @@ if(production > 334){\
     $scope.status = "";
     player.populatePlayer();
 	player.data.script = player_script;
+	script.clearCache();
     enemy.populatePlayer();
 	enemy.data.script = enemy_script;
 	scriptEnemy.script = enemy_script;
+	scriptEnemy.clearCache();
   };
 
   $scope.restart = function() {
