@@ -7,6 +7,7 @@ angular
 '$sce',
 '$filter',
 '$timeout',
+'data',
 'util',
 'savegame',
 'player',
@@ -19,10 +20,11 @@ angular
 'upgradeEnemy',
 'spellEnemy',
 'scriptEnemy',
-function ($scope, $document, $interval, $sce, $filter, $timeout, util, savegame, player, generator, upgrade, spell, script, enemy, generatorEnemy, upgradeEnemy, spellEnemy, scriptEnemy) {
+function ($scope, $document, $interval, $sce, $filter, $timeout, data, util, savegame, player, generator, upgrade, spell, script, enemy, generatorEnemy, upgradeEnemy, spellEnemy, scriptEnemy) {
   $scope.version = '0.8.4';
   $scope.Math = window.Math;
   
+  $scope.data = data;
   $scope.util = util;
   $scope.savegame = savegame;
   $scope.player = player;
@@ -116,24 +118,25 @@ if(production > 334){\
   };  
   
   self.update = function () {
-	if(!$scope.status){		
+    data.save.scripts[$scope.current_slot] = self.code.getValue();
+	if($scope.status === 'play' || $scope.status === 'fast'){		
 		self.processProduction(player, enemy, generator, upgrade);
 		self.processProduction(enemy, player, generatorEnemy, upgradeEnemy);
 		
 		if(player.data.power >= $scope.goal 
 		  && enemy.data.power >= $scope.goal){
-		  $scope.status = "tie";
+		  $scope.result = "tie";
 		  return;
 		}else if(player.data.power >= $scope.goal){
-		  $scope.status = "win";
-		  player.rounds[$scope.current_enemy].wins++;
-		  if(!player.rounds[$scope.current_enemy].record 
-		    || $scope.turn < player.rounds[$scope.current_enemy].record){
-		    player.rounds[$scope.current_enemy].record = $scope.turn;
+		  $scope.result = "win";
+		  data.save.rounds[$scope.current_enemy].wins++;
+		  if(!data.save.rounds[$scope.current_enemy].record 
+		    || $scope.turn < data.save.rounds[$scope.current_enemy].record){
+		    data.save.rounds[$scope.current_enemy].record = $scope.turn;
 		  }
 		  return;
 		}else if(enemy.data.power >= $scope.goal){
-		  $scope.status = "lose";
+		  $scope.result = "lose";
 		  return;
 		}
 		
@@ -153,16 +156,50 @@ if(production > 334){\
 		spell.clear();
 		$scope.turn++;
 	}
+  
+    $interval(self.update, $scope.game_speed, 1);
+  };
+  
+  $scope.run = function() {
+    if($scope.status === "stop"){
+      if(!script.script){
+        alert("Script is empty");
+      }
+
+      if($scope.error_msg){
+        return;
+      }
+      $scope.status = "play";
+    }  
+  };
+  
+  $scope.toggleFast = function() {
+    if($scope.status === "play"){
+      $scope.status = "fast";
+      $scope.game_speed = 1;
+    }else if($scope.status === "fast"){
+      $scope.status = "play";
+      $scope.game_speed = 1000;
+    }    
   };
   
   $scope.loadScript = function() {
     script.clearCache();
-    player.script = self.code.getValue();
-    script.script = player.script;
+    script.script = self.code.getValue();
 
     self.codeoutput.setValue(script.script);
     setTimeout(function() {
       self.codeoutput.refresh();
+    },1);
+    var opponent = angular.copy(enemy.data);
+		opponent.script = undefined;
+    $scope.error_msg = script.eval(angular.copy(player.data), opponent, $scope.goal, $scope.turn, $scope.totalProduction(player, enemy, generator, upgrade));
+  };
+
+  $scope.changeSlot = function() {
+    self.code.setValue(data.save.scripts[$scope.current_slot]);
+    setTimeout(function() {
+      self.code.refresh();
     },1);
   };
   
@@ -170,14 +207,18 @@ if(production > 334){\
     player.populatePlayer();
     enemy.populatePlayer();
     $scope.current_tab = "Game";
+    $scope.current_slot = 1;
+    $scope.changeSlot();
     $scope.turn = 0;
     $scope.goal = 2e10;
+    $scope.game_speed = 1000;
     $scope.error_msg = "";
     // win, lose, tie
-    $scope.status = "";
+    $scope.result = "";
+    // stop, play, fast, finish
+    $scope.status = "stop";
     $scope.current_enemy = "Bot";
-    script.clearCache();
-    player.script = player_script;
+    script.clearCache();    
     enemy.script = enemy_script;
     scriptEnemy.script = enemy_script;
     scriptEnemy.clearCache();
@@ -187,32 +228,37 @@ if(production > 334){\
 	var answer = confirm("Do you want to restart the round?");
 	if(answer){
 		$scope.init();
+    $interval(self.update, $scope.game_speed, 1);
 	}
   };
   
   self.startup = function () {
-	$scope.init();
-	savegame.load();
-      
-	  self.code = CodeMirror.fromTextArea(document.getElementById('code'), {
-        lineNumbers: true
-      });
-    self.code.setValue(player.script);
+    savegame.init();
+    data.save.scripts[$scope.current_slot] = player_script;
+    
+    self.code = CodeMirror.fromTextArea(document.getElementById('code'), {
+      lineNumbers: true
+    });
+    self.codeoutput = CodeMirror.fromTextArea(document.getElementById('codeoutput'), {
+      lineNumbers: true,
+      readOnly: true,
+      theme: 'codemirror_readonly'
+    });
+    
+	  $scope.init();
+	  savegame.load();      
+
+    self.code.setValue(data.save.scripts[$scope.current_slot]);
     setTimeout(function() {
       self.code.refresh();
-    },1);
-    
-	  self.codeoutput = CodeMirror.fromTextArea(document.getElementById('codeoutput'), {
-        lineNumbers: true,
-        readOnly: true,
-        theme: 'codemirror_readonly'
-      });
+    },1);    
+
     self.codeoutput.setValue("");
     setTimeout(function() {
       self.codeoutput.refresh();
     },1);
-    $interval(self.update, 400);
-    $interval(savegame.save, 10000);
+    $interval(self.update, $scope.game_speed, 1);
+    $interval(savegame.store, 10000);
   };
   
   self.onload = $timeout(self.startup);  
