@@ -2608,6 +2608,7 @@ function loadData($scope) {
 				//$scope.addToast("Periodic table");
 				$scope.player.unlocks["hydrogen"] = true;
 				$scope.unlocks["hydrogen"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'unlock', 'hydrogen');
 			},
 			event:"cycle"
 		},
@@ -2619,6 +2620,7 @@ function loadData($scope) {
 					$scope.addToast("Periodic table");
 					$scope.player.unlocks["periodic_table"] = true;
 					$scope.unlocks["periodic_table"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'unlock', 'periodic_table');
 				}
 			},
 			event:"cycle"
@@ -2629,6 +2631,7 @@ function loadData($scope) {
 					$scope.addToast("Isotope");
 					$scope.player.unlocks["isotope"] = true;
 					$scope.unlocks["isotope"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'unlock', 'isotope');
 				}
 			},
 			event:"resource"
@@ -2639,6 +2642,7 @@ function loadData($scope) {
 					$scope.addToast("Ion");
 					$scope.player.unlocks["ion"] = true;
 					$scope.unlocks["ion"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'unlock', 'ion');
 				}
 			},
 			event:"resource"
@@ -2649,6 +2653,7 @@ function loadData($scope) {
 					$scope.addToast("Radioactivity");
 					$scope.player.unlocks["radioactivity"] = true;
 					$scope.unlocks["radioactivity"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'unlock', 'radioactivity');
 				}
 			},
 			event:"resource"
@@ -2659,6 +2664,7 @@ function loadData($scope) {
 					$scope.addToast("Allotrope");
 					$scope.player.unlocks["allotrope"] = true;
 					$scope.unlocks["allotrope"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'unlock', 'allotrope');
 				}
 			},
 			event:"resource"
@@ -2669,6 +2675,7 @@ function loadData($scope) {
 					$scope.addToast("Free radical");
 					$scope.player.unlocks["free_radical"] = true;
 					$scope.unlocks["free_radical"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'unlock', 'free_radical');
 				}
 			},
 			event:"resource"
@@ -2679,6 +2686,7 @@ function loadData($scope) {
 					$scope.addToast("Unstable compound");
 					$scope.player.unlocks["unstable_compound"] = true;
 					$scope.unlocks["unstable_compound"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'unlock', 'unstable_compound');
 				}
 			},
 			event:"resource"
@@ -2689,6 +2697,7 @@ function loadData($scope) {
 					$scope.addToast("Reactions");
 					$scope.player.unlocks["reactions"] = true;
 					$scope.unlocks["reactions"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'unlock', 'reactions');
 				}
 			},
 			event:"resource"
@@ -2699,6 +2708,7 @@ function loadData($scope) {
 					$scope.addToast("Electron");
 					$scope.player.unlocks["electron"] = true;
 					$scope.unlocks["electron"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'unlock', 'electron');
 				}
 			},
 			event:"resource"
@@ -2709,6 +2719,7 @@ function loadData($scope) {
 					$scope.addToast("Proton");
 					$scope.player.unlocks["proton"] = true;
 					$scope.unlocks["proton"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'unlock', 'proton');
 				}
 			},
 			event:"resource"
@@ -2719,6 +2730,7 @@ function loadData($scope) {
 					$scope.addToast("Neutron");
 					$scope.player.unlocks["neutron"] = true;
 					$scope.unlocks["neutron"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'unlock', 'neutron');
 				}
 			},
 			event:"resource"
@@ -2729,6 +2741,7 @@ function loadData($scope) {
 					$scope.addToast("Energy");
 					$scope.player.unlocks["energy"] = true;
 					$scope.unlocks["energy"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'unlock', 'energy');
 				}
 			},
 			event:"resource"
@@ -2739,6 +2752,7 @@ function loadData($scope) {
 					$scope.addToast("Half-life");
 					$scope.player.unlocks["half_life"] = true;
 					$scope.unlocks["half_life"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'unlock', 'half_life');
 				}
 			},
 			event:"resource"
@@ -2749,6 +2763,7 @@ function loadData($scope) {
 					$scope.addToast("Oxygen");
 					$scope.player.unlocks["oxygen"] = true;
 					$scope.unlocks["oxygen"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'unlock', 'oxygen');
 				}
 			},
 			event:"element"
@@ -2759,6 +2774,7 @@ function loadData($scope) {
 					$scope.addToast("Upgrades");
 					$scope.player.unlocks["upgrade"] = true;
 					$scope.unlocks["upgrade"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'unlock', 'upgrade');
 				}
 			},
 			event:"upgrade"
@@ -2769,6 +2785,7 @@ function loadData($scope) {
 					$scope.addToast("Ionization energy");
 					$scope.player.unlocks["ionization_energy"] = true;
 					$scope.unlocks["ionization_energy"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'unlock', 'ionization_energy');
 				}
 			},
 			event:"resource"
@@ -2780,6 +2797,7 @@ function loadData($scope) {
 					$scope.addToast("Electron affinity");
 					$scope.player.unlocks["electron_affinity"] = true;
 					$scope.unlocks["electron_affinity"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'unlock', 'electron_affinity');
 				}
 			},
 			event:"cycle"
@@ -2791,6 +2809,7 @@ function loadData($scope) {
 					$scope.addToast("Nuclear binding energy");
 					$scope.player.unlocks["nuclear_binding_energy"] = true;
 					$scope.unlocks["nuclear_binding_energy"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'unlock', 'nuclear_binding_energy');
 				}
 			},
 			event:"cycle"
@@ -2801,6 +2820,7 @@ function loadData($scope) {
 					$scope.addToast("Beta decay");
 					$scope.player.unlocks["beta_decay"] = true;
 					$scope.unlocks["beta_decay"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'unlock', 'beta_decay');
 				}
 			},
 			event:"decay"
@@ -2813,6 +2833,7 @@ function loadData($scope) {
 					$scope.addToast("Molecule");
 					$scope.player.unlocks["molecule"] = true;
 					$scope.unlocks["molecule"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'unlock', 'molecule');
 				}
 			},
 			event:"resource"
@@ -2823,6 +2844,7 @@ function loadData($scope) {
 					$scope.addToast("Synthesis");
 					$scope.player.unlocks["synthesis"] = true;
 					$scope.unlocks["synthesis"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'unlock', 'synthesis');
 				}
 			},
 			event:"cycle"
@@ -2833,6 +2855,7 @@ function loadData($scope) {
 					$scope.addToast("Congratulations! You finished the game");
 					$scope.player.unlocks["finished"] = true;
 					$scope.unlocks["finished"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'unlock', 'finished');
 				}
 			},
 			event:"cycle"

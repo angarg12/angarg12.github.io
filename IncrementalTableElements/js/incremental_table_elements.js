@@ -1,8 +1,9 @@
 angular.module('incremental',['ngAnimate'])
-.controller('IncCtrl',['$scope','$document','$interval', '$sce', '$filter', '$timeout', 
-function($scope,$document,$interval,$sce,$filter,$timeout) { 
+.controller('IncCtrl',['$scope','$document','$interval', '$sce', '$filter', '$timeout', '$window', 
+function($scope,$document,$interval,$sce,$filter,$timeout, $window) { 
 		$scope.version = '1.0.2';
 		$scope.Math = window.Math;
+		$scope.$window = $window;
 		
 		// Polyfill for some browsers
 		Number.parseFloat = parseFloat;
