@@ -40,6 +40,7 @@ function($scope,$document,$interval,$sce,$filter,$timeout, $window) {
         var numberGenerator = new Ziggurat();
         
         function populatePlayer(){
+        	startPlayer.id = Math.random().toString().substring(3);
         	startPlayer.resources = {};
         	for(var entry in $scope.resources){
         		startPlayer.resources[entry] = {
@@ -378,7 +379,10 @@ function($scope,$document,$interval,$sce,$filter,$timeout, $window) {
 			}
 		}
 		
-		function versionControl() {			
+		function versionControl() {	
+			if(!$scope.player.id){
+				$scope.player.id = Math.random().toString().substring(3);
+			}
 			/*
 			if(versionCompare($scope.player.version,"0.11") == -1){
 				init();
