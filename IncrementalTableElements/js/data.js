@@ -2792,8 +2792,8 @@ function loadData($scope) {
 		},
 		"electron_affinity":{
 			check:function(event,data){  
-				if($scope.player.resources['e-'].number >= 10 &&
-					$scope.player.resources['p'].number >= 10){
+				if($scope.player.resources['e-'].number >= 1 &&
+					$scope.player.resources['p'].number >= 1){
 					$scope.addToast("Electron affinity");
 					$scope.player.unlocks["electron_affinity"] = true;
 					$scope.unlocks["electron_affinity"].listener();
@@ -2804,8 +2804,8 @@ function loadData($scope) {
 		},
 		"nuclear_binding_energy":{
 			check:function(event,data){  
-				if($scope.player.resources['e-'].number >= 100 &&
-					$scope.player.resources['p'].number >= 100){
+				if($scope.player.resources['e-'].number >= 1 &&
+					$scope.player.resources['p'].number >= 1){
 					$scope.addToast("Nuclear binding energy");
 					$scope.player.unlocks["nuclear_binding_energy"] = true;
 					$scope.unlocks["nuclear_binding_energy"].listener();
@@ -2840,7 +2840,7 @@ function loadData($scope) {
 		},
 		"synthesis":{
 			check:function(event,data){  
-				if($scope.player.resources['H-'].number >= 10){
+				if($scope.player.resources['H-'].number >= 1){
 					$scope.addToast("Synthesis");
 					$scope.player.unlocks["synthesis"] = true;
 					$scope.unlocks["synthesis"].listener();
