@@ -26,7 +26,7 @@
   </head>
   <body class="ng-scope theme-none" ng-app="incremental" ng-controller="IncCtrl">
     <div class="container">
-      <div class="navbar navbar-default animif" ng-show="player.intro.banner">
+      <div class="navbar navbar-default animif">
         <div class="container">
           <div class="navbar-header">
             <span class="navbar-brand page-title">
@@ -40,7 +40,7 @@
       </div>
       <div class="viewwrap">
         <div>
-          <div class="ng-scope ng-isolate-scope animif" ng-show="player.intro.menu">
+          <div class="ng-scope ng-isolate-scope animif">
             <ul class="nav nav-tabs ng-scope" role="tablist">
               <li class="animif" ng-repeat="tab in keys(visible(tabs))" 
                 ng-class="{active: current_tab === tab}">
@@ -50,7 +50,7 @@
               </li>
             </ul>
           </div>
-          <div class="tab-content ng-scope animif" id="elements" ng-show="player.intro.content">
+          <div class="tab-content ng-scope animif" id="elements">
             <div class="tab-pane row" ng-class="{active: current_tab == 'Elements'}">
               <div class="col-lg-3">
 			    <div data-spy="affix" data-offset-top="150">
