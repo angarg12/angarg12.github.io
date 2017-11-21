@@ -54,7 +54,6 @@
       showSelectionBar: false,
       showSelectionBarEnd: false,
       showSelectionBarFromValue: null,
-      showOuterSelectionBars: false,
       hidePointerLabels: false,
       hideLimitLabels: false,
       autoHideLimitLabels: true,
@@ -663,39 +662,33 @@
 
           switch (index) {
             case 0:
-              this.leftOutSelBar = jElem;
-              break;
-            case 1:
-              this.rightOutSelBar = jElem;
-              break;
-            case 2:
               this.fullBar = jElem;
               break;
-            case 3:
+            case 1:
               this.selBar = jElem;
               break;
-            case 4:
+            case 2:
               this.minH = jElem;
               break;
-            case 5:
+            case 3:
               this.maxH = jElem;
               break;
-            case 6:
+            case 4:
               this.flrLab = jElem;
               break;
-            case 7:
+            case 5:
               this.ceilLab = jElem;
               break;
-            case 8:
+            case 6:
               this.minLab = jElem;
               break;
-            case 9:
+            case 7:
               this.maxLab = jElem;
               break;
-            case 10:
+            case 8:
               this.cmbLab = jElem;
               break;
-            case 11:
+            case 9:
               this.ticks = jElem;
               break;
           }
@@ -732,12 +725,6 @@
         this.alwaysHide(this.maxLab, hideLabelsForTicks || !this.range || this.options.hidePointerLabels);
         this.alwaysHide(this.cmbLab, hideLabelsForTicks || !this.range || this.options.hidePointerLabels);
         this.alwaysHide(this.selBar, !this.range && !this.options.showSelectionBar);
-        this.alwaysHide(this.leftOutSelBar, !this.range || !this.options.showOuterSelectionBars);
-        this.alwaysHide(this.rightOutSelBar, !this.range || !this.options.showOuterSelectionBars);
-
-        if ( this.range && this.options.showOuterSelectionBars ) {
-          this.fullBar.addClass('rz-transparent');
-        }
 
         if (this.options.vertical)
           this.sliderElem.addClass('rz-vertical');
@@ -1025,7 +1012,7 @@
             tick.tooltip = self.options.ticksTooltip(value);
             tick.tooltipPlacement = self.options.vertical ? 'right' : 'top';
           }
-          if (self.options.showTicksValues === true || value % self.options.showTicksValues === 0) {
+          if (self.options.showTicksValues) {
             tick.value = self.getDisplayValue(value, 'tick-value');
             if (self.options.ticksValuesTooltip) {
               tick.valueTooltip = self.options.ticksValuesTooltip(value);
@@ -1298,19 +1285,6 @@
         }
         this.setDimension(this.selBar, dimension);
         this.setPosition(this.selBar, position);
-        if (this.range && this.options.showOuterSelectionBars) {
-          if (this.options.rightToLeft) {
-            this.setDimension(this.rightOutSelBar, position);
-            this.setPosition(this.rightOutSelBar, 0);
-            this.setDimension(this.leftOutSelBar, this.getDimension(this.fullBar) - (position + dimension));
-            this.setPosition(this.leftOutSelBar, position + dimension);
-          } else {
-            this.setDimension(this.leftOutSelBar, position);
-            this.setPosition(this.leftOutSelBar, 0);
-            this.setDimension(this.rightOutSelBar, this.getDimension(this.fullBar) - (position + dimension));
-            this.setPosition(this.rightOutSelBar, position + dimension);
-          }
-        }
         if (this.options.getSelectionBarColor) {
           var color = this.getSelectionBarColor();
           this.scope.barStyle = {

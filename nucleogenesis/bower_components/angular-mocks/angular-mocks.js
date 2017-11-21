@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.6.6
+ * @license AngularJS v1.6.4
  * (c) 2010-2017 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -511,8 +511,8 @@ angular.mock.$IntervalProvider = function() {
       }
 
       repeatFns.push({
-        nextTime: (now + (delay || 0)),
-        delay: delay || 1,
+        nextTime:(now + delay),
+        delay: delay,
         fn: tick,
         id: nextRepeatId,
         deferred: deferred
@@ -562,16 +562,10 @@ angular.mock.$IntervalProvider = function() {
      * @return {number} The amount of time moved forward.
      */
     $interval.flush = function(millis) {
-      var before = now;
       now += millis;
       while (repeatFns.length && repeatFns[0].nextTime <= now) {
         var task = repeatFns[0];
         task.fn();
-        if (task.nextTime === before) {
-          // this can only happen the first time
-          // a zero-delay interval gets triggered
-          task.nextTime++;
-        }
         task.nextTime += task.delay;
         repeatFns.sort(function(a, b) { return a.nextTime - b.nextTime;});
       }
@@ -803,7 +797,7 @@ angular.mock.TzDate.prototype = Date.prototype;
  * You need to require the `ngAnimateMock` module in your test suite for instance `beforeEach(module('ngAnimateMock'))`
  */
 angular.mock.animate = angular.module('ngAnimateMock', ['ng'])
-  .info({ angularVersion: '1.6.6' })
+  .info({ angularVersion: '1.6.4' })
 
   .config(['$provide', function($provide) {
 
@@ -1361,8 +1355,8 @@ function createHttpBackendMock($rootScope, $timeout, $delegate, $browser) {
 
     return function() {
       return angular.isNumber(status)
-          ? [status, data, headers, statusText, 'complete']
-          : [200, status, data, headers, 'complete'];
+          ? [status, data, headers, statusText]
+          : [200, status, data, headers];
     };
   }
 
@@ -1391,21 +1385,20 @@ function createHttpBackendMock($rootScope, $timeout, $delegate, $browser) {
         }
       }
 
-      handleResponse.description = method + ' ' + url;
       return handleResponse;
 
       function handleResponse() {
         var response = wrapped.response(method, url, data, headers, wrapped.params(url));
         xhr.$$respHeaders = response[2];
         callback(copy(response[0]), copy(response[1]), xhr.getAllResponseHeaders(),
-                 copy(response[3] || ''), copy(response[4]));
+                 copy(response[3] || ''));
       }
 
       function handleTimeout() {
         for (var i = 0, ii = responses.length; i < ii; i++) {
           if (responses[i] === handleResponse) {
             responses.splice(i, 1);
-            callback(-1, undefined, '', undefined, 'timeout');
+            callback(-1, undefined, '');
             break;
           }
         }
@@ -1898,9 +1891,7 @@ function createHttpBackendMock($rootScope, $timeout, $delegate, $browser) {
   $httpBackend.verifyNoOutstandingRequest = function(digest) {
     if (digest !== false) $rootScope.$digest();
     if (responses.length) {
-      var unflushedDescriptions = responses.map(function(res) { return res.description; });
-      throw new Error('Unflushed requests: ' + responses.length + '\n  ' +
-                      unflushedDescriptions.join('\n  '));
+      throw new Error('Unflushed requests: ' + responses.length);
     }
   };
 
@@ -2425,7 +2416,7 @@ angular.module('ngMock', ['ng']).provider({
   $provide.decorator('$rootScope', angular.mock.$RootScopeDecorator);
   $provide.decorator('$controller', createControllerDecorator($compileProvider));
   $provide.decorator('$httpBackend', angular.mock.$httpBackendDecorator);
-}]).info({ angularVersion: '1.6.6' });
+}]).info({ angularVersion: '1.6.4' });
 
 /**
  * @ngdoc module
@@ -2440,7 +2431,7 @@ angular.module('ngMock', ['ng']).provider({
  */
 angular.module('ngMockE2E', ['ng']).config(['$provide', function($provide) {
   $provide.decorator('$httpBackend', angular.mock.e2e.$httpBackendDecorator);
-}]).info({ angularVersion: '1.6.6' });
+}]).info({ angularVersion: '1.6.4' });
 
 /**
  * @ngdoc service

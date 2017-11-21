@@ -83,7 +83,7 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           flatten: true,
-          src: ['src/rzslider.js', 'rzslider.d.ts'],
+          src: ['src/rzslider.js'],
           dest: 'dist/'
         }]
       }
