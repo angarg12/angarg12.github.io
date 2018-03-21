@@ -1,7 +1,7 @@
 angular.module('incremental',['ngAnimate'])
 .controller('IncCtrl',['$scope','$document','$interval', '$sce', '$filter', '$timeout', '$window', 
 function($scope,$document,$interval,$sce,$filter,$timeout, $window) { 
-		$scope.version = '1.0.2';
+		$scope.version = '1.0.3';
 		$scope.Math = window.Math;
 		$scope.$window = $window;
 		
@@ -24,7 +24,10 @@ function($scope,$document,$interval,$sce,$filter,$timeout, $window) {
 			},
 			elements_unlocked:1,
 			current_theme:"base",
-			version:$scope.version
+			version:$scope.version,
+			offline: 0,
+			offlineCyclesTotal: 0,
+			lastLogIn: 0
 			};
 			
 		cache = {};
@@ -36,6 +39,7 @@ function($scope,$document,$interval,$sce,$filter,$timeout, $window) {
 		$scope.synthesis_power_increase = 2;
 		$scope.toast = [];
 		$scope.is_toast_visible = false;
+		$scope.state = {};
 		
         var numberGenerator = new Ziggurat();
         
@@ -325,6 +329,8 @@ function($scope,$document,$interval,$sce,$filter,$timeout, $window) {
 		};	
 
 		$scope.save = function() {
+			var now = Math.floor(Date.now()/1000);
+			$scope.player.lastLogIn = now;
 			localStorage.setItem("playerStoredITE", JSON.stringify($scope.player));
 			var d = new Date();
 			$scope.lastSave = d.toLocaleTimeString();
@@ -333,6 +339,16 @@ function($scope,$document,$interval,$sce,$filter,$timeout, $window) {
 		$scope.load = function() {
 			try {
 				$scope.player = JSON.parse(localStorage.getItem("playerStoredITE"));
+				var now = Math.floor(Date.now()/1000);
+				if(!$scope.player.lastLogIn){
+					$scope.player.lastLogIn = now;
+				}
+				if(!$scope.player.offline){
+					$scope.player.offline = 0;
+				}
+				$scope.player.offline = $scope.player.offline + now - $scope.player.lastLogIn;
+				$scope.player.offlineCyclesTotal = $scope.player.offline;
+				$scope.player.lastLogIn = now;
 			}catch(err){
 				alert("Error loading savegame, reset forced.");
 				$scope.reset(false);
@@ -423,7 +439,11 @@ function($scope,$document,$interval,$sce,$filter,$timeout, $window) {
 			  return k - 1;
 		}
 		
-        function update() {        
+        function update() { 
+			if($scope.player.offline <= 0){
+				$scope.state.fasterTicks = false;
+				$scope.player.offline = 0;
+			}
             // decay should become first, since we are decaying the products from last step
             // We will process the radioactive decay
             for(var i = 0; i < $scope.radioisotopes.length; i++){
@@ -614,6 +634,13 @@ function($scope,$document,$interval,$sce,$filter,$timeout, $window) {
         			$scope.react(power, $scope.synthesis[synthesis]);
         		}
         	}
+			
+			if($scope.state.fasterTicks){
+				$scope.player.offline--;
+				$timeout(update,1);
+			}else{
+				$timeout(update,1000);
+			}
         };
 
 		/* 
@@ -719,7 +746,7 @@ function($scope,$document,$interval,$sce,$filter,$timeout, $window) {
 			//init();
 			intro();
 			initializeListeners();
-            $interval(update,1000);
+            $timeout(update,1000);
             $interval(checkUnlocks,1000);
             $interval(clearCache,3000);
             $interval($scope.save,10000);
