@@ -15,8 +15,8 @@ body{
 	top:0;
 }
 
-.in-iframe affix {
-	width: 25%;
+.in-iframe .affix {
+	width: 23%;
 }
 
 .element-table tr:first-child td {
