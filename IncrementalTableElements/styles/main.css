@@ -15,6 +15,10 @@ body{
 	top:0;
 }
 
+.in-iframe affix {
+	width: 25%;
+}
+
 .element-table tr:first-child td {
     border: 0px none;
 }
