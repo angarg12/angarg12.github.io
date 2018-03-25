@@ -146,25 +146,25 @@
                             </div>
                           </td>
                           <td class="animif col-md-3">
-                            <div class="pull-left" ng-bind-html="trustHTML(prettifyNumber(generatorPrice(name, current_element)))"></div>
+                            <div class="pull-left" ng-bind-html="trustHTML(prettifyNumber(generatorPrice(name, current_element, 1)))"></div>
                             &nbsp;{{current_element}}
                           </td>
                           <td class="animif col-md-3">
                             <div class="pull-left">
                               <button class="btn btn-default button-small"
                                 ng-click="buyGenerator(name, current_element)"
-                                ng-class="{disabled: generatorPrice(name, current_element) > player.resources[current_element].number}">1</button>
+                                ng-class="{disabled: generatorPrice(name, current_element, 1) > player.resources[current_element].number}">1</button>
                             </div>
                             <div class="pull-left">
                               <button class="btn btn-default button-small"
                                 ng-click="buyGenerators(name, current_element, 10)"
-                                ng-class="{disabled: generatorPrice(name, current_element) > player.resources[current_element].number}">10</button>
+                                ng-class="{disabled: generatorPrice(name, current_element, 10) > player.resources[current_element].number}">10</button>
                             </div>
                             <!-- crappy workaround since it doesn't recognize the literal Infinity -->
                             <div class="pull-left">
                               <button class="btn btn-default button-small"
                                 ng-click="buyGenerators(name, current_element, 1/0)"
-                                ng-class="{disabled: generatorPrice(name, current_element) > player.resources[current_element].number}">&#8892;</button>
+                                ng-class="{disabled: generatorPrice(name, current_element, 1) > player.resources[current_element].number}">&#8892;</button>
                             </div>
                           </td>
                         </tr>

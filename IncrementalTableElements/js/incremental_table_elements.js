@@ -131,10 +131,16 @@ function($scope,$document,$interval,$sce,$filter,$timeout, $window) {
 					$scope.player.resources['n'].number >= price;
 		};
 
-		$scope.generatorPrice = function(name, element) {
+		$scope.generatorPrice = function(name, element, number) {
 			var level = $scope.player.elements[element].generators[name].level;
-			var price = $scope.generators[name].price*Math.pow($scope.generators[name].priceIncrease, level);
-			return Math.ceil(price);
+			var totalPrice = 0;
+			if(number === Infinity) number = 1;
+			for(var i = 0; i < number; i++){
+				var price = $scope.generators[name].price*Math.pow($scope.generators[name].priceIncrease, level);
+				totalPrice += Math.ceil(price);
+				level++;
+			}
+			return Math.ceil(totalPrice);
 		};
 		
 		$scope.synthesisMultiplier = function(element, synthesis) {
@@ -199,26 +205,20 @@ function($scope,$document,$interval,$sce,$filter,$timeout, $window) {
 		};
 		
 		$scope.buyGenerators = function(name, element, number) {
-        	var price = $scope.generatorPrice(name, element);
-        	var i = 0;
-        	// yes, yes, I know that using a loop is cheap, will refactor...
-        	while(i < number && 
-        			$scope.player.resources[element].number >= price) {
+        	var price = $scope.generatorPrice(name, element, number);
+			
+        	if($scope.player.resources[element].number >= price) {
                 $scope.player.resources[element].number -= price;
-                $scope.player.elements[element].generators[name].level++;
-                price = $scope.generatorPrice(name, element);
-        	    i++;
+				var toAdd = number;
+				if(toAdd === Infinity) toAdd = 1;
+                $scope.player.elements[element].generators[name].level += toAdd;
+				if(number === Infinity) $scope.buyGenerators(name, element, number);
             }
 			$scope.$emit("upgrade",name);
         };
 		
         $scope.buyGenerator = function(name, element) {
-        	var price = $scope.generatorPrice(name, element);
-            if ($scope.player.resources[element].number >= price) {
-                $scope.player.resources[element].number -= price;
-                $scope.player.elements[element].generators[name].level++;
-				$scope.$emit("upgrade",name);
-            }
+			$scope.buyGenerators(name, element, 1);
         };
         
         $scope.buyUpgrade = function(name, element) {
