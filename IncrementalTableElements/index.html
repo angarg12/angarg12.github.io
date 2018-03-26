@@ -399,6 +399,60 @@
           </div>
           <div class="tab-content ng-scope" id="missions">
             <div class="tab-pane row" ng-class="{active: current_tab == 'Missions'}">
+			  <div class="col-lg-3">
+			    <div data-spy="affix" data-offset-top="150">
+                <table class="table table-hover element-table no_bottom">
+                  <tbody class="animif" ng-repeat="key in keys(visible(resources))" 
+                    ng-mouseover="player.resources[key].is_new = false"
+                    class="">
+                    <tr>
+                      <td width=15%>
+                        <span class="glyphicon glyphicon-exclamation-sign" title="New available" ng-if="player.resources[key].is_new"></span>
+                      </td>
+                      <td width=35% colspan="2">
+                        <span class="pull-left by-icon" ng-bind-html="trustHTML(getHTML(key))"></span>&nbsp;
+                        <span ng-if="radioisotopes.indexOf(key) != -1" title="Radioctive" class="pull-left icon">&#9762;</span> &nbsp;
+                        <span ng-if="free_radicals.indexOf(key) != -1" title="Free radical" class="pull-left icon">&bull;</span>&nbsp;
+                        <span ng-if="unstables.indexOf(key) != -1" title="Unstable" class="pull-left icon">&#8967;</span>   
+                      </td>
+                      <td width=50%>
+                        <div class="pull-left" ng-bind-html="trustHTML(prettifyNumber(player.resources[key].number))"></div>
+                      </td>
+                    </tr>
+                    <tr ng-if="resources[key].decay != null">
+                      <td width=15%></td>
+                      <td width=20%>
+                        <div class="pull-right">&#9495;</div>
+                      </td>
+                      <td width=15%>
+                        t<sub>1/2</sub>
+                      </td>
+                      <td width=50%>
+                        <div class="pull-left" ng-bind-html="trustHTML(prettifyNumber(resources[key].decay.half_life))"></div>
+                        s
+                      </td>
+                    </tr>
+                    <!-- XXX: We tie this unlock to beta decay to avoid introducing a new generic unlock "decay". Since beta
+                      decay is the first and only decay type on the game, this works just fine.
+                      -->
+                    <tr ng-if="resources[key].decay != null && player.unlocks.beta_decay">
+                      <td width=15%></td>
+                      <td width=20%>
+                        <div class="pull-right" >&#9495;</div>
+                      </td>
+                      <td width=15%>
+                        <div ng-if="resources[key].decay.decay_type" ng-bind-html="trustHTML(getHTML(resources[key].decay.decay_type))"></div>
+                      </td>
+                      <td width=50%>
+                        <div class="pull-left" ng-bind-html="trustHTML(decayFormat(resources[key].decay))"></div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                </div>
+			  </div>
+			  
+			  <div class="col-lg-8">
 			    <div ng-if="numberUnlocked() < 10">
                   <br>
                   <h1>Missions completed: {{numberUnlocked()}}/??</h1>
@@ -496,7 +550,7 @@
               </div>
               <div class="col-lg-2 col-lg-pull-10">
                 <table class="table table-hover element-table no_bottom">
-                  <tbody class="animif" ng-repeat="key in keys(visible(resources))">
+                  <tbody class="animif" ng-repeat="key in table_resources">
                     <tr>
                       <td width=15%>
                         <span class="pull-left by-icon" ng-bind-html="trustHTML(getHTML(key))"></span>
