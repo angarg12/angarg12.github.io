@@ -23,6 +23,10 @@ body{
     border: 0px none;
 }
 
+.subnavbar {
+	padding-left: 1em;
+}
+
 .right-box {
 	padding-left:0px;
 }
