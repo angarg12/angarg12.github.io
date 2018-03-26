@@ -730,6 +730,7 @@ function($scope,$document,$interval,$sce,$filter,$timeout, $window) {
 			$scope.is_toast_visible = false;
 			populatePlayer();
 			$scope.player = angular.copy(startPlayer);
+			initializeListeners();
 		};
 				
 		$timeout(function(){
