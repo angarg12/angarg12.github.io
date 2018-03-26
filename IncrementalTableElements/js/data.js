@@ -2091,6 +2091,15 @@ function loadData($scope) {
 					},
 					order:0
 			},
+			'Missions':{
+					visible:function(){
+						return true;
+					},
+					has_new:function(){
+						return false;
+					},
+					order:1
+			},
 			'Encyclopedia':{
 					visible:function(){
 						return $scope.player.intro.content;
@@ -2105,7 +2114,7 @@ function loadData($scope) {
 					
 						return false;
 					},
-					order:1
+					order:2
 			},
 			'Periodic Table':{
 					visible:function(){
@@ -2114,7 +2123,7 @@ function loadData($scope) {
 					has_new:function(){
 						return false;
 					},
-					order:2
+					order:3
 			},
 			'Options':{
 					visible:function(){
@@ -2123,7 +2132,7 @@ function loadData($scope) {
 					has_new:function(){
 						return false;
 					},
-					order:3
+					order:4
 			}
 		};
 		
@@ -2334,7 +2343,7 @@ function loadData($scope) {
 						'e-':1
 					},
 					visible:function(){
-						return $scope.player.unlocks["ionization_energy"] == true;
+						return $scope.player.unlocks["beta_decay"] == true;
 					}
 				}
 			},
@@ -2523,9 +2532,7 @@ function loadData($scope) {
 				'energy':5.925
 			},
 			visible:function(){
-				return $scope.player.unlocks["synthesis"] == true && 
-						$scope.player.resources['O'].number > 1e8 &&
-						$scope.player.resources['H'].number > 1e14 &&
+				return $scope.player.unlocks["free_radical_2"] == true &&
 						($scope.current_element == "H" ||
 						$scope.current_element == "O");
 			}
@@ -2540,169 +2547,34 @@ function loadData($scope) {
 	
 	$scope.unlocks = {
 		"hydrogen":{
-			check:function(event,data){  
-				//$scope.addToast("Periodic table");
-				$scope.player.unlocks["hydrogen"] = true;
-				$scope.unlocks["hydrogen"].listener();
-				$scope.$window.ga('send', 'event', 'unlock', 'hydrogen', $scope.player.id, Date.now());
-			},
-			event:"cycle"
-		},
-		"periodic_table":{
-			check:function(event,data){  
-				if($scope.player.resources['e-'].unlocked &&
-					$scope.player.resources['p'].unlocked &&
-					$scope.player.resources['n'].unlocked){
-					$scope.addToast("Periodic table");
-					$scope.player.unlocks["periodic_table"] = true;
-					$scope.unlocks["periodic_table"].listener();
-					$scope.$window.ga('send', 'event', 'unlock', 'periodic_table', $scope.player.id, Date.now());
-				}
-			},
-			event:"cycle"
-		},
-		"isotope":{
-			check:function(event,data){  
-				if(['2H','3H'].indexOf(data) != -1){
-					$scope.addToast("Isotope");
-					$scope.player.unlocks["isotope"] = true;
-					$scope.unlocks["isotope"].listener();
-					$scope.$window.ga('send', 'event', 'unlock', 'isotope', $scope.player.id, Date.now());
-				}
-			},
-			event:"resource"
-		},
-		"ion":{
-			check:function(event,data){  
-				if("H-" == data){
-					$scope.addToast("Ion");
-					$scope.player.unlocks["ion"] = true;
-					$scope.unlocks["ion"].listener();
-					$scope.$window.ga('send', 'event', 'unlock', 'ion', $scope.player.id, Date.now());
-				}
-			},
-			event:"resource"
-		},
-		"radioactivity":{
-			check:function(event,data){  
-				if("3H" == data){
-					$scope.addToast("Radioactivity");
-					$scope.player.unlocks["radioactivity"] = true;
-					$scope.unlocks["radioactivity"].listener();
-					$scope.$window.ga('send', 'event', 'unlock', 'radioactivity', $scope.player.id, Date.now());
-				}
-			},
-			event:"resource"
-		},
-		"allotrope":{
-			check:function(event,data){  
-				if(['O2','O3'].indexOf(data) != -1){
-					$scope.addToast("Allotrope");
-					$scope.player.unlocks["allotrope"] = true;
-					$scope.unlocks["allotrope"].listener();
-					$scope.$window.ga('send', 'event', 'unlock', 'allotrope', $scope.player.id, Date.now());
-				}
-			},
-			event:"resource"
-		},
-		"free_radical":{
-			check:function(event,data){  
-				if("O" == data){
-					$scope.addToast("Free radical");
-					$scope.player.unlocks["free_radical"] = true;
-					$scope.unlocks["free_radical"].listener();
-					$scope.$window.ga('send', 'event', 'unlock', 'free_radical', $scope.player.id, Date.now());
-				}
-			},
-			event:"resource"
-		},
-		"unstable_compound":{
-			check:function(event,data){  
-				if("O3" == data){
-					$scope.addToast("Unstable compound");
-					$scope.player.unlocks["unstable_compound"] = true;
-					$scope.unlocks["unstable_compound"].listener();
-					$scope.$window.ga('send', 'event', 'unlock', 'unstable_compound', $scope.player.id, Date.now());
-				}
-			},
-			event:"resource"
-		},
-		"reactions":{
-			check:function(event,data){  
-				if("e-" == data){
-					$scope.addToast("Reactions");
-					$scope.player.unlocks["reactions"] = true;
-					$scope.unlocks["reactions"].listener();
-					$scope.$window.ga('send', 'event', 'unlock', 'reactions', $scope.player.id, Date.now());
-				}
-			},
-			event:"resource"
-		},
-		"electron":{
-			check:function(event,data){  
-				if("e-" == data){
-					$scope.addToast("Electron");
-					$scope.player.unlocks["electron"] = true;
-					$scope.unlocks["electron"].listener();
-					$scope.$window.ga('send', 'event', 'unlock', 'electron', $scope.player.id, Date.now());
-				}
-			},
-			event:"resource"
-		},
-		"proton":{
 			check:function(event,data){
-				if("p" == data){
-					$scope.addToast("Proton");
-					$scope.player.unlocks["proton"] = true;
-					$scope.unlocks["proton"].listener();
-					$scope.$window.ga('send', 'event', 'unlock', 'proton', $scope.player.id, Date.now());
+  				if($scope.player.resources.H.number >= 1e4){
+					$scope.addToast("Hydrogen I");
+					$scope.player.unlocks["hydrogen"] = true;
+					$scope.unlocks["hydrogen"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'hydrogen', $scope.player.id, Date.now());
 				}
 			},
-			event:"resource"
+			visible:function(){ return true;},
+			name: "Hydrogen I",
+			description: "Gather 10.000 H", 
+			event:"cycle"
 		},
-		"neutron":{
-			check:function(event,data){  
-				if("n" == data){
-					$scope.addToast("Neutron");
-					$scope.player.unlocks["neutron"] = true;
-					$scope.unlocks["neutron"].listener();
-					$scope.$window.ga('send', 'event', 'unlock', 'neutron', $scope.player.id, Date.now());
+		"hydrogen_2":{
+			check:function(event,data){
+  				if($scope.player.resources.H.number >= 1e6){
+					$scope.addToast("Hydrogen II");
+					$scope.player.unlocks["hydrogen_2"] = true;
+					$scope.unlocks["hydrogen_2"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'hydrogen_2', $scope.player.id, Date.now());
 				}
 			},
-			event:"resource"
-		},
-		"energy":{
-			check:function(event,data){  
-				if("energy" == data){
-					$scope.addToast("Energy");
-					$scope.player.unlocks["energy"] = true;
-					$scope.unlocks["energy"].listener();
-					$scope.$window.ga('send', 'event', 'unlock', 'energy', $scope.player.id, Date.now());
-				}
+			visible:function(){ 
+				return $scope.player.unlocks.hydrogen;
 			},
-			event:"resource"
-		},
-		"half_life":{
-			check:function(event,data){  
-				if("3H" == data){
-					$scope.addToast("Half-life");
-					$scope.player.unlocks["half_life"] = true;
-					$scope.unlocks["half_life"].listener();
-					$scope.$window.ga('send', 'event', 'unlock', 'half_life', $scope.player.id, Date.now());
-				}
-			},
-			event:"resource"
-		},
-		"oxygen":{
-			check:function(event,data){  
-				if("O" == data){
-					$scope.addToast("Oxygen");
-					$scope.player.unlocks["oxygen"] = true;
-					$scope.unlocks["oxygen"].listener();
-					$scope.$window.ga('send', 'event', 'unlock', 'oxygen', $scope.player.id, Date.now());
-				}
-			},
-			event:"element"
+			name: "Hydrogen II",
+			description: "Gather 1 million (1e6) H", 
+			event:"cycle"
 		},
 		"upgrade":{
 			check:function(event,data){  
@@ -2713,41 +2585,87 @@ function loadData($scope) {
 					$scope.$window.ga('send', 'event', 'unlock', 'upgrade', $scope.player.id, Date.now());
 				}
 			},
+			visible:function(){ return true;},
+			name: "Upgrades",
+			description: "Buy a Tier III generator.", 
 			event:"upgrade"
 		},
-		"ionization_energy":{
+		"isotope":{
 			check:function(event,data){  
-				if("e-" == data){
-					$scope.addToast("Ionization energy");
-					$scope.player.unlocks["ionization_energy"] = true;
-					$scope.unlocks["ionization_energy"].listener();
-					$scope.$window.ga('send', 'event', 'unlock', 'ionization_energy', $scope.player.id, Date.now());
+				if(['2H','3H'].indexOf(data) != -1){
+					$scope.addToast("Isotope");
+					$scope.player.unlocks["isotope"] = true;
+					$scope.unlocks["isotope"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'isotope', $scope.player.id, Date.now());
 				}
 			},
+			visible:function(){ return true;},
+			name: "Isotope",
+			description: "Increase your production and randomly generate a new isotope.", 
 			event:"resource"
 		},
-		"electron_affinity":{
+		"isotope_2":{
 			check:function(event,data){  
-				if($scope.player.resources['e-'].number >= 1 &&
-					$scope.player.resources['p'].number >= 1){
-					$scope.addToast("Electron affinity");
-					$scope.player.unlocks["electron_affinity"] = true;
-					$scope.unlocks["electron_affinity"].listener();
-					$scope.$window.ga('send', 'event', 'unlock', 'electron_affinity', $scope.player.id, Date.now());
+				if($scope.player.resources['2H'].number >= 1e4){
+					$scope.addToast("Isotope II");
+					$scope.player.unlocks["isotope_2"] = true;
+					$scope.unlocks["isotope_2"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'isotope_2', $scope.player.id, Date.now());
 				}
 			},
+			visible:function(){ 
+				return $scope.player.unlocks.isotope;
+			},
+			name: "Isotope II",
+			description: "Gather 10.000 of an isotope.", 
 			event:"cycle"
 		},
-		"nuclear_binding_energy":{
+		"radioactivity":{
 			check:function(event,data){  
-				if($scope.player.resources['e-'].number >= 1 &&
-					$scope.player.resources['p'].number >= 1){
-					$scope.addToast("Nuclear binding energy");
-					$scope.player.unlocks["nuclear_binding_energy"] = true;
-					$scope.unlocks["nuclear_binding_energy"].listener();
-					$scope.$window.ga('send', 'event', 'unlock', 'nuclear_binding_energy', $scope.player.id, Date.now());
+				if($scope.player.resources['3H'].unlocked){
+					$scope.addToast("Radioactivity");
+					$scope.player.unlocks["radioactivity"] = true;
+					$scope.unlocks["radioactivity"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'radioactivity', $scope.player.id, Date.now());
 				}
 			},
+			visible:function(){
+				return $scope.player.unlocks.hydrogen;
+			},
+			name: "Radioactivity",
+			description: "Randomly generate a radioactive isotope.", 
+			event:"cycle"
+		},
+		"half_life":{
+			check:function(event,data){  
+				if($scope.player.resources['3H'].number >= 1000){
+					$scope.addToast("Half-life");
+					$scope.player.unlocks["half_life"] = true;
+					$scope.unlocks["half_life"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'half_life', $scope.player.id, Date.now());
+				}
+			},
+			visible:function(){ 
+				return $scope.player.unlocks.radioactivity;
+			},
+			name: "Half-Life",
+			description: "Gather 1000 3H", 
+			event:"cycle"
+		},
+		"decay":{
+			check:function(event,data){  
+				if($scope.player.resources['3H'].number >= 50000){
+					$scope.addToast("Decay");
+					$scope.player.unlocks["decay"] = true;
+					$scope.unlocks["decay"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'decay', $scope.player.id, Date.now());
+				}
+			},
+			visible:function(){ 
+				return $scope.player.unlocks.half_life;
+			},
+			name: "Decay",
+			description: "Gather 50.000 3H.", 
 			event:"cycle"
 		},
 		"beta_decay":{
@@ -2759,41 +2677,299 @@ function loadData($scope) {
 					$scope.$window.ga('send', 'event', 'unlock', 'beta_decay', $scope.player.id, Date.now());
 				}
 			},
+			visible:function(){ 
+				return $scope.player.unlocks.half_life;
+			},
+			name: "Beta decay",
+			description: "Gather enough 3H to produce a random radioactive decay.", 
 			event:"decay"
 		},
-		"molecule":{
+		"energy":{
 			check:function(event,data){  
-				if("H2" == data ||
-					"O2" == data ||
-					"O3" == data){
-					$scope.addToast("Molecule");
-					$scope.player.unlocks["molecule"] = true;
-					$scope.unlocks["molecule"].listener();
-					$scope.$window.ga('send', 'event', 'unlock', 'molecule', $scope.player.id, Date.now());
+				if($scope.player.resources['energy'].number >= 1e6){
+					$scope.addToast("Energy");
+					$scope.player.unlocks["energy"] = true;
+					$scope.unlocks["energy"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'energy', $scope.player.id, Date.now());
 				}
 			},
-			event:"resource"
+			visible:function(){ 
+				return $scope.player.unlocks.beta_decay;
+			},
+			name: "Energy",
+			description: "Gather 1 million (1e6) eV.", 
+			event:"cycle"
+		},
+		"nuclear_binding_energy":{
+			check:function(event,data){  
+				if($scope.player.resources['energy'].number >= 1e7){
+					$scope.addToast("Nuclear binding energy");
+					$scope.player.unlocks["nuclear_binding_energy"] = true;
+					$scope.unlocks["nuclear_binding_energy"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'nuclear_binding_energy', $scope.player.id, Date.now());
+				}
+			},
+			visible:function(){ 
+				return $scope.player.unlocks.energy;
+			},
+			name: "Nuclear binding energy",
+			description: "Gather 10 million (1e7) energy.", 
+			event:"cycle"
+		},
+		"electron":{
+			check:function(event,data){  
+				if($scope.player.resources['e-'].number >= 100){
+					$scope.addToast("Electron");
+					$scope.player.unlocks["electron"] = true;
+					$scope.unlocks["electron"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'electron', $scope.player.id, Date.now());
+				}
+			},
+			visible:function(){ 
+				return $scope.player.unlocks.beta_decay;
+			},
+			name: "Electron",
+			description: "Gather 100 e-.", 
+			event:"cycle"
+		},
+		"proton":{
+			check:function(event,data){
+				if($scope.player.resources['p'].number >= 1000){
+					$scope.addToast("Proton");
+					$scope.player.unlocks["proton"] = true;
+					$scope.unlocks["proton"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'proton', $scope.player.id, Date.now());
+				}
+			},
+			visible:function(){ 
+				return $scope.player.unlocks.beta_decay;
+			},
+			name: "Proton",
+			description: "Gather 1000 p.", 
+			event:"cycle"
+		},
+		"ionization_energy":{
+			check:function(event,data){  
+				if($scope.player.resources['e-'].number >= 2500){
+					$scope.addToast("Ionization energy");
+					$scope.player.unlocks["ionization_energy"] = true;
+					$scope.unlocks["ionization_energy"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'ionization_energy', $scope.player.id, Date.now());
+				}
+			},
+			visible:function(){ 
+				return $scope.player.unlocks.electron;
+			},
+			name: "Ionization energy",
+			description: "Gather 2500 e-.", 
+			event:"cycle"
+		},
+		"electron_affinity":{
+			check:function(event,data){  
+				if($scope.player.resources['p'].number >= 10000){
+					$scope.addToast("Electron affinity");
+					$scope.player.unlocks["electron_affinity"] = true;
+					$scope.unlocks["electron_affinity"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'electron_affinity', $scope.player.id, Date.now());
+				}
+			},
+			visible:function(){ 
+				return $scope.player.unlocks.proton;
+			},
+			name: "Electron affinity",
+			description: "Gather 10.000 p.", 
+			event:"cycle"
+		},
+		"ion":{
+			check:function(event,data){  
+				if($scope.player.resources['H-'].number >= 10000){
+					$scope.addToast("Ion");
+					$scope.player.unlocks["ion"] = true;
+					$scope.unlocks["ion"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'ion', $scope.player.id, Date.now());
+				}
+			},
+			visible:function(){ 
+				return $scope.player.unlocks.electron_affinity;
+			},
+			name: "Ions",
+			description: "Generate 10.000 H-.", 
+			event:"cycle"
 		},
 		"synthesis":{
 			check:function(event,data){  
-				if($scope.player.resources['H-'].number >= 1){
+				if($scope.player.resources['H-'].number >= 250000){
 					$scope.addToast("Synthesis");
 					$scope.player.unlocks["synthesis"] = true;
 					$scope.unlocks["synthesis"].listener();
 					$scope.$window.ga('send', 'event', 'unlock', 'synthesis', $scope.player.id, Date.now());
 				}
 			},
+			visible:function(){ 
+				return $scope.player.unlocks.ion;
+			},
+			name: "Synthesis",
+			description: "Gather 250.000 H-.", 
 			event:"cycle"
+		},
+		"molecule":{
+			check:function(event,data){  
+				if($scope.player.resources['H2'].number >= 100000){
+					$scope.addToast("Molecule");
+					$scope.player.unlocks["molecule"] = true;
+					$scope.unlocks["molecule"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'molecule', $scope.player.id, Date.now());
+				}
+			},
+			visible:function(){ 
+				return $scope.player.unlocks.synthesis;
+			},
+			name: "Molecule",
+			description: "Generate 100.000 H2.", 
+			event:"cycle"
+		},
+		"reactions":{
+			check:function(event,data){  
+				if($scope.player.resources['n'].number >= 5){
+					$scope.addToast("Reactions");
+					$scope.player.unlocks["reactions"] = true;
+					$scope.unlocks["reactions"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'reactions', $scope.player.id, Date.now());
+				}
+			},
+			visible:function(){ 
+				return $scope.player.unlocks.nuclear_binding_energy;
+			},
+			name: "Reactions",
+			description: "Gather 5 n.", 
+			event:"cycle"
+		},
+		"neutron":{
+			check:function(event,data){  
+				if($scope.player.resources['n'].number >= 25){
+					$scope.addToast("Neutron");
+					$scope.player.unlocks["neutron"] = true;
+					$scope.unlocks["neutron"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'neutron', $scope.player.id, Date.now());
+				}
+			},
+			visible:function(){ 
+				return $scope.player.unlocks.reactions;
+			},
+			name: "Neutron",
+			description: "Gather 25 n.", 
+			event:"cycle"
+		},
+		"periodic_table":{
+			check:function(event,data){  
+				if($scope.player.resources['n'].number >= 50 ){
+					$scope.addToast("Periodic table");
+					$scope.player.unlocks["periodic_table"] = true;
+					$scope.unlocks["periodic_table"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'periodic_table', $scope.player.id, Date.now());
+				}
+			},
+			visible:function(){ 
+				return $scope.player.unlocks.neutron;
+			},
+			name: "Periodic Table",
+			description: "Gather 50 n.", 
+			event:"cycle"
+		},
+		"oxygen":{
+			check:function(event,data){  
+				if("O" == data){
+					$scope.addToast("Oxygen");
+					$scope.player.unlocks["oxygen"] = true;
+					$scope.unlocks["oxygen"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'oxygen', $scope.player.id, Date.now());
+				}
+			},
+			visible:function(){ 
+				return $scope.player.unlocks.periodic_table;
+			},
+			name: "Oxygen",
+			description: "Buy Oxygen.", 
+			event:"element"
+		},
+		"free_radical":{
+			check:function(event,data){
+				if($scope.player.resources.O.number >= 100000){
+					$scope.addToast("Free radical");
+					$scope.player.unlocks["free_radical"] = true;
+					$scope.unlocks["free_radical"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'free_radical', $scope.player.id, Date.now());
+				}
+			},
+			visible:function(){ 
+				return $scope.player.unlocks.oxygen;
+			},
+			name: "Free radical",
+			description: "Gather 100.000 O.", 
+			event:"cycle"
+		},
+		"free_radical_2":{
+			check:function(event,data){
+				if($scope.player.resources.O.number >= 1e8){
+					$scope.addToast("Free radical II");
+					$scope.player.unlocks["free_radical_2"] = true;
+					$scope.unlocks["free_radical_2"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'free_radical_2', $scope.player.id, Date.now());
+				}
+			},
+			visible:function(){ 
+				return $scope.player.unlocks.free_radical;
+			},
+			name: "Free radical",
+			description: "Gather 100 million (1e8) O.", 
+			event:"cycle"
+		},
+		"allotrope":{
+			check:function(event,data){  
+				if(['O2','O3'].indexOf(data) != -1){
+					$scope.addToast("Allotrope");
+					$scope.player.unlocks["allotrope"] = true;
+					$scope.unlocks["allotrope"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'allotrope', $scope.player.id, Date.now());
+				}
+			},
+			visible:function(){ 
+				return $scope.player.unlocks.oxygen;
+			},
+			name: "Allotrope",
+			description: "Increase your Oxygen production and randomly generate an allotrope.", 
+			event:"resource"
+		},
+		"unstable_compound":{
+			check:function(event,data){  
+				if("O3" == data){
+					$scope.addToast("Unstable compound");
+					$scope.player.unlocks["unstable_compound"] = true;
+					$scope.unlocks["unstable_compound"].listener();
+					$scope.$window.ga('send', 'event', 'unlock', 'unstable_compound', $scope.player.id, Date.now());
+				}
+			},
+			visible:function(){ 
+				return $scope.player.unlocks.oxygen;
+			},
+			name: "Unstable compound",
+			description: "Increase your Oxygen generation and randomly produce an unstable compound.", 
+			event:"resource"
 		},
 		"finished":{
 			check:function(event,data){  
-				if($scope.player.resources['H2O'].unlocked){
-					$scope.addToast("Congratulations! You finished the game");
+				if($scope.player.resources['H2O'].number >= 1e6){
+					$scope.addToast("The end");
 					$scope.player.unlocks["finished"] = true;
 					$scope.unlocks["finished"].listener();
 					$scope.$window.ga('send', 'event', 'unlock', 'finished', $scope.player.id, Date.now());
 				}
 			},
+			visible:function(){ 
+				return $scope.player.unlocks.free_radical_2;
+			},
+			name: "The end",
+			description: "Generate 1 million (1e6) H2O. Check the Encyclopedia for a message.", 
 			event:"cycle"
 		}
 	};
