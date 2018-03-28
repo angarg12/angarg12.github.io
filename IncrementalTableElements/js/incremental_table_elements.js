@@ -855,9 +855,8 @@ function($scope,$document,$interval,$sce,$filter,$timeout, $window) {
 			return 0;
 		}
 		
-		// determine if we are in an iframe
 		$(function() {
-		  if (window.self != window.top) {
+		  if (kongregate) {
 			$(document.body).addClass("in-iframe");
 		  }
 		});
