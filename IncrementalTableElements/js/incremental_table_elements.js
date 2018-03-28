@@ -1,7 +1,7 @@
 angular.module('incremental',['ngAnimate'])
 .controller('IncCtrl',['$scope','$document','$interval', '$sce', '$filter', '$timeout', '$window', 
 function($scope,$document,$interval,$sce,$filter,$timeout, $window) { 
-		$scope.version = '1.0.4';
+		$scope.version = '1.0.5';
 		$scope.Math = window.Math;
 		$scope.$window = $window;
 		

@@ -1848,6 +1848,22 @@ function loadData($scope) {
 					},
 					order:0
 			},
+			'Upgrades':{
+					visible:function(){
+						return $scope.player.unlocks.upgrade;
+					},
+					has_new:function(){
+						return false;
+					}
+			},
+			'Reactions':{
+					visible:function(){
+						return $scope.player.unlocks.beta_decay;
+					},
+					has_new:function(){
+						return false;
+					}
+			},
 			'Missions':{
 					visible:function(){
 						return true;

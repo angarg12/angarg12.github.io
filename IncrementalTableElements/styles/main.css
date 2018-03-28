@@ -62,12 +62,10 @@ body{
 .achievealert {
   position:fixed;
   bottom:0;
-  left:0;
-  width:100%;
+  left:10px;
+  width:20%;
 }
-.achieve {
-  text-align:center;
-}
+
 .achieve h3 {
   margin-top:0px;
   margin-bottom:0px;
