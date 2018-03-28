@@ -339,7 +339,7 @@ function($scope,$document,$interval,$sce,$filter,$timeout, $window) {
 			var d = new Date();
 			$scope.lastSave = d.toLocaleTimeString();
 			if(kongregate){
-				if($scope.player.finished){
+				if($scope.player.unlocks.finished){
 					kongregate.stats.submit('Game completed', 1);
 				}
 				kongregate.stats.submit('Missions completed', $scope.numberUnlocked());
