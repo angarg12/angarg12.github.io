@@ -4,6 +4,7 @@ function($scope,$document,$interval,$sce,$filter,$timeout, $window) {
 		$scope.version = '1.0.5';
 		$scope.Math = window.Math;
 		$scope.$window = $window;
+		var kongregate = parent.kongregate;
 		
 		// Polyfill for some browsers
 		Number.parseFloat = parseFloat;
@@ -334,6 +335,12 @@ function($scope,$document,$interval,$sce,$filter,$timeout, $window) {
 			localStorage.setItem("playerStoredITE", JSON.stringify($scope.player));
 			var d = new Date();
 			$scope.lastSave = d.toLocaleTimeString();
+			if(kongregate){
+				if($scope.player.finished){
+					kongregate.stats.submit('Game completed', 1);
+				}
+				kongregate.stats.submit('Missions completed', $scope.numberUnlocked());
+			}
 		};
 		
 		$scope.load = function() {
