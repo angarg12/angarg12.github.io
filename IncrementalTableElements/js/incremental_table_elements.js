@@ -4,7 +4,7 @@ function($scope,$document,$interval,$sce,$filter,$timeout, $window) {
 		$scope.version = '1.0.5';
 		$scope.Math = window.Math;
 		$scope.$window = $window;
-		var kongregate = parent.kongregate;
+		//var kongregate = parent.kongregate;
 		
 		// Polyfill for some browsers
 		Number.parseFloat = parseFloat;
