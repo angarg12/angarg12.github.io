@@ -4,7 +4,10 @@ function($scope,$document,$interval,$sce,$filter,$timeout, $window) {
 		$scope.version = '1.0.5';
 		$scope.Math = window.Math;
 		$scope.$window = $window;
-		//var kongregate = parent.kongregate;
+		// if we are outside the Kong shell, it will throw an exception
+		try {
+			var kongregate = parent.kongregate;
+		} catch(e) {}
 		
 		// Polyfill for some browsers
 		Number.parseFloat = parseFloat;
