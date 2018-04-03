@@ -39,7 +39,7 @@ function($scope,$document,$interval,$sce,$filter,$timeout, $window) {
 		$scope.current_entry = "Hydrogen";
 		$scope.current_element = "H";
 		$scope.hover_element = "";
-		$scope.synthesis_price_increase = 1.15;
+		$scope.synthesis_price_increase = 1.05;
 		$scope.synthesis_power_increase = 2;
 		$scope.toast = [];
 		$scope.is_toast_visible = false;
