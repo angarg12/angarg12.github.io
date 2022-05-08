@@ -1,3 +1,502 @@
+## 1.0.30 (2021-12-01)
+[Compare `@uirouter/angularjs` versions 1.0.29 and 1.0.30](https://github.com/angular-ui/ui-router/compare/1.0.29...1.0.30)
+
+
+---
+
+
+### Updated `@uirouter/core` from 6.0.7 to 6.0.8
+
+
+Changelog for `@uirouter/core`:
+
+
+[Compare `@uirouter/core` versions 6.0.7 and 6.0.8](https://github.com/ui-router/core/compare/6.0.7...6.0.8)
+
+## 1.0.29 (2020-12-21)
+[Compare `@uirouter/angularjs` versions 1.0.28 and 1.0.29](https://github.com/angular-ui/ui-router/compare/1.0.28...1.0.29)
+
+
+---
+
+
+### Updated `@uirouter/core` from 6.0.6 to 6.0.7
+
+
+Changelog for `@uirouter/core`:
+
+
+[Compare `@uirouter/core` versions 6.0.6 and 6.0.7](https://github.com/ui-router/core/compare/6.0.6...6.0.7)
+
+### Bug Fixes
+
+* **array:** Fix decoding of array-type query parameters ([44ebfae](https://github.com/ui-router/core/commit/44ebfae))
+
+- Note: this fix does not affect angularjs
+
+## 1.0.28 (2020-08-08)
+[Compare `@uirouter/angularjs` versions 1.0.27 and 1.0.28](https://github.com/angular-ui/ui-router/compare/1.0.27...1.0.28)
+
+### Bug Fixes
+
+* should not transition states when alt-clicked ([8080adb](https://github.com/angular-ui/ui-router/commit/8080adb))
+
+## 1.0.27 (2020-07-21)
+[Compare `@uirouter/angularjs` versions 1.0.26 and 1.0.27](https://github.com/angular-ui/ui-router/compare/1.0.26...1.0.27)
+
+### Bug Fixes
+
+* make augmented StateRegistry.register overload better match the signature in core ([db4e63f](https://github.com/angular-ui/ui-router/commit/db4e63f))
+
+
+---
+
+### Updated `@uirouter/core` from 6.0.5 to 6.0.6
+
+
+Changelog for `@uirouter/core`:
+
+
+[Compare `@uirouter/core` versions 6.0.5 and 6.0.6](https://github.com/ui-router/core/compare/6.0.5...6.0.6)
+
+### Bug Fixes
+
+* **params:** Bi-directionally en/decode path and search params. ([#618](https://github.com/ui-router/core/issues/618)) ([89e99cd](https://github.com/ui-router/core/commit/89e99cd))
+
+
+## 1.0.26 (2020-04-29)
+[Compare `@uirouter/angularjs` versions 1.0.25 and 1.0.26](https://github.com/angular-ui/ui-router/compare/1.0.25...1.0.26)
+
+
+---
+
+
+### Updated `@uirouter/core` from 6.0.4 to 6.0.5
+
+
+Changelog for `@uirouter/core`:
+
+
+[Compare `@uirouter/core` versions 6.0.4 and 6.0.5](https://github.com/ui-router/core/compare/6.0.4...6.0.5)
+
+### Bug Fixes
+
+* **TargetState:** make isDef check more thorough ([e657cfe](https://github.com/ui-router/core/commit/e657cfe))
+
+
+### Features
+
+* **urlRuleFactory:** Add support for StateDeclarations in UrlRuleFactory.fromState() ([539d33a](https://github.com/ui-router/core/commit/539d33a))
+
+## 1.0.25 (2020-02-04)
+[Compare `@uirouter/angularjs` versions 1.0.24 and 1.0.25](https://github.com/angular-ui/ui-router/compare/1.0.24...1.0.25)
+
+
+---
+
+
+### Updated `@uirouter/core` from 6.0.3 to 6.0.4
+
+
+Changelog for `@uirouter/core`:
+
+
+[Compare `@uirouter/core` versions 6.0.3 and 6.0.4](https://github.com/ui-router/core/compare/6.0.3...6.0.4)
+
+### Bug Fixes
+
+* **safeConsole:** check if document is defined to avoid issues in node environments ([da29d88](https://github.com/ui-router/core/commit/da29d88))
+
+## 1.0.24 (2019-12-30)
+[Compare `@uirouter/angularjs` versions 1.0.23 and 1.0.24](https://github.com/angular-ui/ui-router/compare/1.0.23...1.0.24)
+
+
+---
+
+
+### Updated `@uirouter/core` from 6.0.1 to 6.0.3
+
+
+Changelog for `@uirouter/core`:
+
+
+[Compare `@uirouter/core` versions 6.0.1 and 6.0.3](https://github.com/ui-router/core/compare/6.0.1...6.0.3)
+
+### Bug Fixes
+
+* **hof:** Rewrite curry from scratch ([fc324c6](https://github.com/ui-router/core/commit/fc324c6)), closes [#350](https://github.com/ui-router/core/issues/350)
+* **IE9:** Add safeConsole so IE9 doesn't break ([9c8579d](https://github.com/ui-router/core/commit/9c8579d))
+
+
+### Features
+
+* **stateService:** add transition option 'supercede' so transition can be ignored if one is pending ([6e5a56f](https://github.com/ui-router/core/commit/6e5a56f))
+
+## 1.0.23 (2019-10-02)
+[Compare `@uirouter/angularjs` versions 1.0.22 and 1.0.23](https://github.com/angular-ui/ui-router/compare/1.0.22...1.0.23)
+
+### Bug Fixes
+
+* **stateFilters:** Export each function individually ([978b882](https://github.com/angular-ui/ui-router/commit/978b882))
+* **travis:** Fix travis build ([dc0f58a](https://github.com/angular-ui/ui-router/commit/dc0f58a))
+* **types:** Remove [@types/jquery](https://github.com/types/jquery) from devDependencies, upgrade [@types/angular](https://github.com/types/angular) ([b12bc84](https://github.com/angular-ui/ui-router/commit/b12bc84))
+* **viewDirective:** add check for componentProvider, avoid extra trigger for $onInit (fixing [#3735](https://github.com/angular-ui/ui-router/issues/3735)) ([#3779](https://github.com/angular-ui/ui-router/issues/3779)) ([c3e87ad](https://github.com/angular-ui/ui-router/commit/c3e87ad))
+
+
+---
+
+
+### Updated `@uirouter/core` from 5.0.23 to 6.0.1
+[Compare `@uirouter/core` versions 5.0.23 and 6.0.1](https://github.com/ui-router/core/compare/5.0.23...6.0.1)
+
+### Bug Fixes
+
+* **resolve:** remove unnecessary generics from CustomAsyncPolicy ([#452](https://github.com/ui-router/core/issues/452)) ([61f4ee9](https://github.com/ui-router/core/commit/61f4ee9))
+* **travis:** use service: xvfb instead of launching it manually.  install libgconf debian package ([ac1ef4b](https://github.com/ui-router/core/commit/ac1ef4b))
+
+
+### Features
+
+* **resolve:** Remove RXWAIT async policy in favour of allowing user defined async policy function ([#366](https://github.com/ui-router/core/issues/366)) ([0ad87f6](https://github.com/ui-router/core/commit/0ad87f6))
+
+
+### BREAKING CHANGES
+
+* **resolve:** RXWAIT async policy has been removed, but it never worked in the first place
+
+## 1.0.22 (2019-01-29)
+[Compare `@uirouter/angularjs` versions 1.0.21 and 1.0.22](https://github.com/angular-ui/ui-router/compare/1.0.21...1.0.22)
+
+
+### Updated `@uirouter/core` from 5.0.22 to 5.0.23
+[Compare `@uirouter/core` versions 5.0.22 and 5.0.23](https://github.com/ui-router/core/compare/5.0.22...5.0.23)
+
+### Bug Fixes
+
+* **test_downstream_projects:** don't double build core while testing downstreams ([148b16b](https://github.com/ui-router/core/commit/148b16b))
+* **typescript:** Fix typing of onChange callback in UrlService ([961ed0f](https://github.com/ui-router/core/commit/961ed0f)), closes [#229](https://github.com/ui-router/core/issues/229)
+* **typescript:** Mark `params` as optional in StateService.href ([614bfb4](https://github.com/ui-router/core/commit/614bfb4)), closes [#287](https://github.com/ui-router/core/issues/287)
+* **vanilla:** Fix baseHref parsing with chrome-extension:// urls ([f11be4d](https://github.com/ui-router/core/commit/f11be4d)), closes [#304](https://github.com/ui-router/core/issues/304)
+
+## 1.0.21 (2019-01-10)
+[Compare `@uirouter/angularjs` versions 1.0.20 and 1.0.21](https://github.com/angular-ui/ui-router/compare/1.0.20...1.0.21)
+
+
+### Updated `@uirouter/core` from 5.0.21 to 5.0.22
+[Compare `@uirouter/core` versions 5.0.21 and 5.0.22](https://github.com/ui-router/core/compare/5.0.21...5.0.22)
+
+### Bug Fixes
+
+* **lazyLoad:** StateBuilder should not mutate the state declaration ([1478a3c](https://github.com/ui-router/core/commit/1478a3c)), closes [/github.com/ui-router/core/commit/3cd5a2a#r31260154](https://github.com//github.com/ui-router/core/commit/3cd5a2a/issues/r31260154)
+* **state:** Update URL in response to ignored transition due to redirect ([c64c252](https://github.com/ui-router/core/commit/c64c252))
+
+
+### Features
+
+* **TransitionHook:** Pass in transition to HookMatchCriteria ([#255](https://github.com/ui-router/core/issues/255)) ([926705e](https://github.com/ui-router/core/commit/926705e))
+
+## 1.0.20 (2018-08-11)
+[Compare `@uirouter/angularjs` versions 1.0.19 and 1.0.20](https://github.com/angular-ui/ui-router/compare/1.0.19...1.0.20)
+
+
+### Updated `@uirouter/core` from 5.0.20 to 5.0.21
+[Compare `@uirouter/core` versions 5.0.20 and 5.0.21](https://github.com/ui-router/core/compare/5.0.20...5.0.21)
+
+### Bug Fixes
+
+* **dynamic:** Use 'find' from common.ts instead of Array.prototype.find ([66a3244](https://github.com/ui-router/core/commit/66a3244)), closes [#215](https://github.com/ui-router/core/issues/215)
+* **url:** When using html5Mode and no <base> tag is present, default to '/' ([23742e3](https://github.com/ui-router/core/commit/23742e3)), closes [#223](https://github.com/ui-router/core/issues/223)
+
+## 1.0.19 (2018-07-20)
+[Compare `@uirouter/angularjs` versions 1.0.18 and 1.0.19](https://github.com/angular-ui/ui-router/compare/1.0.18...1.0.19)
+
+### Bug Fixes
+
+* **npm:** Publish to the old angular-ui-router npm package too ([8fc3bb2](https://github.com/angular-ui/ui-router/commit/8fc3bb2))
+* **resolve:** Detect and honor strictDi in angularjs versions 1.3 and 1.4 ([1368c18](https://github.com/angular-ui/ui-router/commit/1368c18)), closes [#3678](https://github.com/angular-ui/ui-router/issues/3678)
+* **state:** When creating absolute hrefs in hashbang mode, include the location.pathname ([cd426e5](https://github.com/angular-ui/ui-router/commit/cd426e5)), closes [#3710](https://github.com/angular-ui/ui-router/issues/3710)
+* **uiview:** Allow uiOnParamsChanged to work with states that have a componentProvider ([fe91bd3](https://github.com/angular-ui/ui-router/commit/fe91bd3)), closes [#3707](https://github.com/angular-ui/ui-router/issues/3707)
+
+
+### Updated `@uirouter/core` from 5.0.19 to 5.0.20
+[Compare `@uirouter/core` versions 5.0.19 and 5.0.20](https://github.com/ui-router/core/compare/5.0.19...5.0.20)
+
+### Bug Fixes
+
+* **params:** When creating an array parameter from a custom type, copy the `raw` property ([b6dd738](https://github.com/ui-router/core/commit/b6dd738)), closes [#178](https://github.com/ui-router/core/issues/178)
+
+
+### Features
+
+* **dynamic:** Support dynamic flag on a state declaration ([3cd5a2a](https://github.com/ui-router/core/commit/3cd5a2a))
+* **transition:** Added transition.paramsChanged() to get added/deleted/changed parameter values for a transition ([10b7fde](https://github.com/ui-router/core/commit/10b7fde))
+* **view:** Add _pluginapi._registeredUIView() to get a ui-view by id ([6533b51](https://github.com/ui-router/core/commit/6533b51))
+
+## 1.0.18 (2018-05-19)
+[Compare `@uirouter/angularjs` versions 1.0.17 and 1.0.18](https://github.com/angular-ui/ui-router/compare/1.0.17...1.0.18)
+
+### Bug Fixes
+
+* **bundles:** Do not run prettier against release/* bundles when publishing to bower ([9b420fa](https://github.com/angular-ui/ui-router/commit/9b420fa))
+
+## 1.0.17 (2018-05-13)
+[Compare `@uirouter/angularjs` versions 1.0.16 and 1.0.17](https://github.com/angular-ui/ui-router/compare/1.0.16...1.0.17)
+
+
+### Updated `@uirouter/core` from 5.0.18 to 5.0.19
+[Compare `@uirouter/core` versions 5.0.18 and 5.0.19](https://github.com/ui-router/core/compare/5.0.18...5.0.19)
+
+### Bug Fixes
+
+* **enums:** Workaround angular compiler export issue https://github.com/angular/angular/issues/23759 ([38d25fa](https://github.com/ui-router/core/commit/38d25fa))
+
+## 1.0.16 (2018-05-03)
+[Compare `@uirouter/angularjs` versions 1.0.15 and 1.0.16](https://github.com/angular-ui/ui-router/compare/1.0.15...1.0.16)
+
+### Bug Fixes
+
+* **docs:** downgrade to [@types](https://github.com/types)/angular[@1](https://github.com/1).6.25 to fix typings error when generating docs ([5850136](https://github.com/angular-ui/ui-router/commit/5850136))
+
+
+### Updated `@uirouter/core` from 5.0.17 to 5.0.18
+[Compare `@uirouter/core` versions 5.0.17 and 5.0.18](https://github.com/ui-router/core/compare/5.0.17...5.0.18)
+
+### Bug Fixes
+
+* **angular:** A hack to force the Angular compiler to import from module index ([d56a2be](https://github.com/ui-router/core/commit/d56a2be))
+* **StateRegistry:** Notify listeners of added states when there are orphans in the state queue ([5a9bac9](https://github.com/ui-router/core/commit/5a9bac9))
+* **transition:** Fix typing of Transition.params() ([ebea30e](https://github.com/ui-router/core/commit/ebea30e))
+* **transition:** Normalize `error()` to always return `Rejection` ([9bcc5db](https://github.com/ui-router/core/commit/9bcc5db))
+
+## 1.0.15 (2018-02-12)
+[Compare `@uirouter/angularjs` versions 1.0.14 and 1.0.15](https://github.com/angular-ui/ui-router/compare/1.0.14...1.0.15)
+
+### Bug Fixes
+
+* **package:** update [@uirouter](https://github.com/uirouter)/core to version 5.0.17 ([1b54264](https://github.com/angular-ui/ui-router/commit/1b54264))
+
+
+### Updated `@uirouter/core` from 5.0.16 to 5.0.17
+[Compare `@uirouter/core` versions 5.0.16 and 5.0.17](https://github.com/ui-router/core/compare/5.0.16...5.0.17)
+
+### Bug Fixes
+
+* **core:** Fix leak of old transitions by mutating pathnode*.resolvables*.data ([0a1f518](https://github.com/ui-router/core/commit/0a1f518))
+
+## 1.0.14 (2018-01-31)
+[Compare `@uirouter/angularjs` versions 1.0.13 and 1.0.14](https://github.com/angular-ui/ui-router/compare/1.0.13...1.0.14)
+
+### Bug Fixes
+
+* **uiSrefActive:** don't match fuzzy on lazy loaded future states ([01430ee](https://github.com/angular-ui/ui-router/commit/01430ee))
+
+
+### Features
+
+* **uiSrefActive:** Support arrays of globs for ng-class style ([b215343](https://github.com/angular-ui/ui-router/commit/b215343))
+
+
+### Updated `@uirouter/core` from 5.0.14 to 5.0.16
+[Compare `@uirouter/core` versions 5.0.14 and 5.0.16](https://github.com/ui-router/core/compare/5.0.14...5.0.16)
+
+### Bug Fixes
+
+* **common:** Fix signature of  for objects (make target optional) ([61d0afc](https://github.com/ui-router/core/commit/61d0afc))
+* **core:** Fix memory leak of resolve data from ALL transitions ever ([7f2aed1](https://github.com/ui-router/core/commit/7f2aed1))
+* **pathNode:** add backwards compat for PathNode.clone(). Add retainedWithToParams to treeChanges interface. ([4833a32](https://github.com/ui-router/core/commit/4833a32))
+
+
+### Features
+
+* **common:** Add map-in-place support to map() ([12bc7d8](https://github.com/ui-router/core/commit/12bc7d8))
+* **common:** Add onEvict() callback registry for queues with max length ([c19d007](https://github.com/ui-router/core/commit/c19d007))
+
+## 1.0.13 (2018-01-10)
+[Compare `@uirouter/angularjs` versions 1.0.12 and 1.0.13](https://github.com/angular-ui/ui-router/compare/1.0.12...1.0.13)
+
+
+### Updated `@uirouter/core` from 5.0.13 to 5.0.14
+[Compare `@uirouter/core` versions 5.0.13 and 5.0.14](https://github.com/ui-router/core/compare/5.0.13...5.0.14)
+
+### Bug Fixes
+
+* **trace:** Fix null reference in uiview name sort function ([59cb067](https://github.com/ui-router/core/commit/59cb067))
+* **treeChanges:** apply toParams to 'retained' path ([#72](https://github.com/ui-router/core/issues/72)) ([cf63d11](https://github.com/ui-router/core/commit/cf63d11))
+
+## 1.0.12 (2017-12-22)
+[Compare `@uirouter/angularjs` versions 1.0.11 and 1.0.12](https://github.com/angular-ui/ui-router/compare/1.0.11...1.0.12)
+
+### Bug Fixes
+
+* **location:** allow empty string param: Ng1LocationServices.url('') ([01bbaf0](https://github.com/angular-ui/ui-router/commit/01bbaf0))
+* **onEnter:** Do not inject child-state data into ng1 onEnter hooks ([cdec6a0](https://github.com/angular-ui/ui-router/commit/cdec6a0))
+* **package:** update [@uirouter](https://github.com/uirouter)/core to version 5.0.13 ([6c63f2d](https://github.com/angular-ui/ui-router/commit/6c63f2d))
+* **travis:** regenerate and encrypt secret ([c718ce5](https://github.com/angular-ui/ui-router/commit/c718ce5))
+
+
+### Updated `@uirouter/core` from 5.0.11 to 5.0.13
+[Compare `@uirouter/core` versions 5.0.11 and 5.0.13](https://github.com/ui-router/core/compare/5.0.11...5.0.13)
+
+### Bug Fixes
+
+* **browserLocation:** Use location.pathname (not href) or '/' when no base tag found ([db461d6](https://github.com/ui-router/core/commit/db461d6))
+* **browserLocationConfig:** If no base href found, use location.href (not empty string) ([0251424](https://github.com/ui-router/core/commit/0251424))
+* **pushStateLocation:** Fix URLs: add slash between base and path when necessary ([bfa5755](https://github.com/ui-router/core/commit/bfa5755))
+* **pushStateLocation:** When url is "" or "/", use baseHref for pushState ([042a950](https://github.com/ui-router/core/commit/042a950))
+* **resolve:** Add onFinish hook to resolve any dynamicly added resolvables ([7d1ca54](https://github.com/ui-router/core/commit/7d1ca54))
+* **urlRouter:** Update query params when resetting url via .update() ([7664cd0](https://github.com/ui-router/core/commit/7664cd0))
+
+
+### Features
+
+* **view:** Add onSync callback API to plugin API ([9544ae5](https://github.com/ui-router/core/commit/9544ae5))
+
+## 1.0.11 (2017-11-13)
+[Compare `@uirouter/angularjs` versions 1.0.10 and 1.0.11](https://github.com/angular-ui/ui-router/compare/1.0.10...1.0.11)
+
+### Bug Fixes
+
+* **uiView:** Fix cfg.getTemplate is undefined ([f4d99b0](https://github.com/angular-ui/ui-router/commit/f4d99b0))
+
+## 1.0.10 (2017-10-18)
+[Compare `@uirouter/angularjs` versions 1.0.9 and 1.0.10](https://github.com/angular-ui/ui-router/compare/1.0.9...1.0.10)
+
+### Bug Fixes
+
+* **artifactory:** Add trailing newline to package.json to work around artifactory issue  ([#3551](https://github.com/angular-ui/ui-router/issues/3551)) ([d09a345](https://github.com/angular-ui/ui-router/commit/d09a345)), closes [#3550](https://github.com/angular-ui/ui-router/issues/3550)
+
+## 1.0.9 (2017-10-17)
+[Compare `@uirouter/angularjs` versions 1.0.8 and 1.0.9](https://github.com/angular-ui/ui-router/compare/1.0.8...1.0.9)
+
+
+### Updated `@uirouter/core` from 5.0.10 to 5.0.11
+[Compare `@uirouter/core` versions 5.0.10 and 5.0.11](https://github.com/ui-router/core/compare/5.0.10...5.0.11)
+
+### Bug Fixes
+
+* **ie9:** make console.bind work in ie9 ([#85](https://github.com/ui-router/core/issues/85)) ([318214b](https://github.com/ui-router/core/commit/318214b))
+
+## 1.0.8 (2017-10-07)
+[Compare `@uirouter/angularjs` versions 1.0.7 and 1.0.8](https://github.com/angular-ui/ui-router/compare/1.0.7...1.0.8)
+
+
+## 5.0.10 (2017-10-07)
+[Compare `@uirouter/core` versions 5.0.8 and 5.0.10](https://github.com/ui-router/core/compare/5.0.8...5.0.10)
+
+### Bug Fixes
+
+* **angular/cli:** Use package.json fields: 'typings', 'main', 'jsnext:main' ([74143d9](https://github.com/ui-router/core/commit/74143d9))
+* **isomorphic:** Remove use of CustomEvent. Detect root scope (global/window/self) for nodejs, browser, or web-worker. ([2d206ba](https://github.com/ui-router/core/commit/2d206ba))
+* **typings:** Use StateObject for parameter to hook criteria functions ([5b58566](https://github.com/ui-router/core/commit/5b58566))
+
+
+### Features
+
+* **TransitionHook:** Add hook registration option `invokeLimit` to limit the number of times a hook is invoked before being auto-deregistered. ([2cb17ef](https://github.com/ui-router/core/commit/2cb17ef))
+
+
+
+## 1.0.7 (2017-09-30)
+[Compare `@uirouter/angularjs` versions 1.0.6 and 1.0.7](https://github.com/angular-ui/ui-router/compare/1.0.6...1.0.7)
+
+### Bug Fixes
+
+* **typings:** Allow views: { foo: 'string' } in Ng1StateDeclaration ([2f7a3f2](https://github.com/angular-ui/ui-router/commit/2f7a3f2))
+
+### Updated `@uirouter/core` from 5.0.6 to 5.0.8 (2017-09-30)
+[Compare `@uirouter/core` versions 5.0.6 and 5.0.8](https://github.com/ui-router/core/compare/5.0.6...5.0.8)
+
+### Bug Fixes
+
+* **bundle:** Rollup: Do not warn on THIS_IS_UNDEFINED ([a4581b1](https://github.com/ui-router/core/commit/a4581b1))
+* **globals:** Use shallow copy to update the globals.params / $state.params object ([e883afc](https://github.com/ui-router/core/commit/e883afc))
+* **Injector:** When getting tokens from native injector, only throw on undefined (not on falsey values) ([ada9ca2](https://github.com/ui-router/core/commit/ada9ca2))
+* **redirectTo:** Fix typings for redirectTo. Allow a function that returns a target state or a promise for one. ([3904487](https://github.com/ui-router/core/commit/3904487))
+* **trace:** Fall back to console.log if .table is unavailable (IE) ([c8110fc](https://github.com/ui-router/core/commit/c8110fc))
+* **trace:** Support tracing of object-parameters with circular references ([2f1ae9a](https://github.com/ui-router/core/commit/2f1ae9a))
+* **url:** Add CustomEvent polyfill for IE ([a50db21](https://github.com/ui-router/core/commit/a50db21))
+* **vanilla:** fix base path handling for vanilla push state ([ad61d74](https://github.com/ui-router/core/commit/ad61d74))
+* **vanilla:** Use `self` instead of `window` for webworker compat ([a4629ee](https://github.com/ui-router/core/commit/a4629ee))
+
+
+### Features
+
+* **TargetState:** Add builder methods .withState, .withParams, and .withOptions ([6b93142](https://github.com/ui-router/core/commit/6b93142))
+
+
+
+## `@uirouter/angularjs` 1.0.6 (2017-08-12)
+[Compare `@uirouter/angularjs` versions 1.0.5 and 1.0.6](https://github.com/angular-ui/ui-router/compare/1.0.5...1.0.6)
+
+### Bug Fixes
+
+* **sourcemaps:** Embed sources inline into sourcemaps ([4baa430](https://github.com/angular-ui/ui-router/commit/4baa430))
+
+
+
+## Changes in `@uirouter/core` between versions [5.0.5 and 5.0.6](https://github.com/ui-router/core/compare/5.0.5...5.0.6) (2017-08-12)
+
+
+### Bug Fixes
+
+* **sourceMaps:** Embed typescript sources in sourcemaps ([10558a3](https://github.com/ui-router/core/commit/10558a3))
+* **typescript:** Fix strictNullCheck type error ([0ae585e](https://github.com/ui-router/core/commit/0ae585e))
+* **urlRouter:** Fix absolute 'href' generation by using location.hostname (not location.host) ([a28b68a](https://github.com/ui-router/core/commit/a28b68a))
+* **urlService:** Fix priority sorting of URL rules ([73a1fe0](https://github.com/ui-router/core/commit/73a1fe0))
+
+
+
+<a name="1.0.5"></a>
+## [1.0.5](https://github.com/angular-ui/ui-router/compare/1.0.4...1.0.5) (2017-06-29)
+
+Updated to @uirouter/core 5.0.5 and addressed typescript 2.4 breaking changes
+
+## Changes in `@uirouter/core` between versions [5.0.3 and 5.0.5](https://github.com/ui-router/core/compare/5.0.3...5.0.5) (2017-06-29)
+
+
+### Bug Fixes
+
+* **future:** Allow future states to specify a `parent:` ([828fe1b](https://github.com/ui-router/core/commit/828fe1b))
+* **typescript:** Update to typescript 2.4 ([ce1669b](https://github.com/ui-router/core/commit/ce1669b))
+* **view:** only sync views which are of the same name *and type* ([c48da4a](https://github.com/ui-router/core/commit/c48da4a))
+
+
+### Features
+
+* **invalidTransition:** Better error messaging when param values are invalid ([2a15d1a](https://github.com/ui-router/core/commit/2a15d1a))
+* **trace:** Trace view synchronization. Allow trace.enable(...string) ([284392d](https://github.com/ui-router/core/commit/284392d))
+* **urlMatcher:** add support for multiline urls ([5b11ce0](https://github.com/ui-router/core/commit/5b11ce0))
+
+
+
+<a name="1.0.4"></a>
+## [1.0.4](https://github.com/angular-ui/ui-router/compare/1.0.3...1.0.4) (2017-06-09)
+
+
+### Bug Fixes
+
+* **bundle:** work around rollup bug https://github.com/rollup/rollup/issues/1322 ([befb50a](https://github.com/angular-ui/ui-router/commit/befb50a))
+* **uiSrefActive:** Avoid "Possibly unhandled rejection" in console ([5c09e28](https://github.com/angular-ui/ui-router/commit/5c09e28))
+
+
+
+### @uirouter/core changes
+## [5.0.4](https://github.com/ui-router/core/compare/5.0.3...5.0.4) (2017-06-09)
+
+
+### Bug Fixes
+
+* **future:** Allow future states to specify a `parent:` ([828fe1b](https://github.com/ui-router/core/commit/828fe1b))
+* **view:** only sync views which are of the same name *and type* ([c48da4a](https://github.com/ui-router/core/commit/c48da4a))
+
+
+### Features
+
+* **invalidTransition:** Better error messaging when param values are invalid ([2a15d1a](https://github.com/ui-router/core/commit/2a15d1a))
+* **trace:** Trace view synchronization. Allow trace.enable(...string) ([284392d](https://github.com/ui-router/core/commit/284392d))
+
+
+
 <a name="1.0.3"></a>
 ## [1.0.3](https://github.com/angular-ui/ui-router/compare/1.0.1...1.0.3) (2017-05-07)
 
@@ -69,8 +568,8 @@
 UI-Router for AngularJS version 1.0.0 updates `ui-router-core@3.1.0` to `@uirouter/core@5.0.1`.
 Please keep reading to see if the breaking changes from core between 3.1.0 and 5.0.1 affect you.
 
-### @uirouter/core changes
-# [5.0.0](https://github.com/ui-router/core/compare/3.1.0...5.0.1) (2017-04-30)
+### `@uirouter/core` changes
+# [diff to 3.1.0](https://github.com/ui-router/core/compare/3.1.0...5.0.1) (2017-04-30)
 
 ### Bug Fixes
 

@@ -55,6 +55,15 @@
   </article>
 
   <article>
+    <h2>Range slider with restricted area from 30 to 70</h2>
+    <rzslider
+      data-rz-slider-model="restrictedRangeSlider.minValue"
+      data-rz-slider-high="restrictedRangeSlider.maxValue"
+      data-rz-slider-options="restrictedRangeSlider.options"
+    ></rzslider>
+  </article>
+  
+  <article>
     <h2>Range slider with minimum range of 10 and maximum of 50</h2>
     <rzslider
       rz-slider-model="minMaxRangeSlider.minValue"
@@ -79,6 +88,15 @@
       rz-slider-high="minPushRangeSlider.maxValue"
       rz-slider-options="minPushRangeSlider.options"
     ></rzslider>
+  </article>
+
+  <article>
+     <h2>Range slider with coloured bars outside the selected range</h2>
+     <rzslider
+       rz-slider-model="outerBarsRangeSlider.minValue"
+       rz-slider-high="outerBarsRangeSlider.maxValue"
+       rz-slider-options="outerBarsRangeSlider.options"
+     ></rzslider>
   </article>
 
   <article>
@@ -411,7 +429,8 @@
         <label>Show ticks values <input type="checkbox" ng-model="slider_all_options.options.showTicksValues"></label><br/>
         <label>Disabled <input type="checkbox" ng-model="slider_all_options.options.disabled"></label><br/>
         <label>Read-Only <input type="checkbox" ng-model="slider_all_options.options.readOnly"></label><br />
-        <label>Right to Left <input type="checkbox" ng-model="slider_all_options.options.rightToLeft"></label>
+        <label>Right to Left <input type="checkbox" ng-model="slider_all_options.options.rightToLeft"></label><br />
+        <label>Reversed Controls <input type="checkbox" ng-model="slider_all_options.options.reversedControls"></label>
       </div>
     </div>
     <rzslider
